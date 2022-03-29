@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import PageContext from "./PageContext"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const [isDark, setDark] = useState(true);
+    const toggleTheme = () => {
+        setDark(!isDark)
+    }
+    return (
+        <>
+            <PageContext.Provider value={{
+                isDark: true,
+                toggleTheme: toggleTheme
+            }}>
+                Hello world, we are in {isDark ? "Dark" : "Light"} mode!
+            </PageContext.Provider>
+        </>
+    )
 }
 
 export default App;
