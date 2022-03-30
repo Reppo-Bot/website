@@ -1,8 +1,12 @@
 import React from 'react';
 
 const PageContext = React.createContext({
-    isDark : true,
-    toggleTheme: () => {}
+    colorMode: {
+        toggleColorMode: () => {}
+    },
+    setTokenInfo: (token, expiration, callback) => {},
+    accessToken: '',
+    expiration: 0
 })
 
 export default PageContext
