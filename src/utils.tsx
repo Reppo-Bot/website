@@ -29,8 +29,8 @@ export const getDesignTokens = (mode: PaletteMode)=> ({
                 main: '#3a48e8'
             },
             text: {
-                primary: '#ffffff',
-                secondary: '#ffffff'
+                primary: '#000000',
+                secondary: '#000000'
             },
             background: {
                 default: '#fdfcff',
@@ -51,8 +51,8 @@ export const getDesignTokens = (mode: PaletteMode)=> ({
                 main: '#bcc2ff'
             },
             text: {
-                primary: '#111a95',
-                secondary: '#0001ad'
+                primary: '#ffffff',
+                secondary: '#ffffff'
             },
             background: {
                 default: '#1a1c1e',
@@ -67,3 +67,23 @@ export const getDesignTokens = (mode: PaletteMode)=> ({
         })
     }
 })
+
+export async function authUser(accessToken: string, expiration: string){
+    try{
+        const res = await fetch("http://web.localhost:8080/global/login", {
+            method: 'POST',
+            headers: {
+                authorization: `Bearer ${accessToken}`
+            },
+            body: JSON.stringify(expiration)
+        })
+        if(res.status !== 200){
+            throw new Error("Invalid Login")
+        }
+        return await res.json()
+    }
+    catch (e){
+        console.log(e)
+        return undefined
+    }
+}

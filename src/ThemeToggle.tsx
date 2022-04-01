@@ -5,7 +5,7 @@ import {
     useTheme,
     styled,
     FormGroup,
-    FormControlLabel,
+    FormControlLabel
 } from "@mui/material"
 
 const ThemeModeSwitch = styled(Switch)(({theme}) => ({
