@@ -26,7 +26,7 @@ function ProfileMenu(props: {user?: {id: string, avatar: string, name: string}})
         <>
             <IconButton
                 onClick={handleClick}
-                sx={{marginRight: '20px'}}
+                sx={{marginRight: '10px'}}
             >
                 {props.user === undefined ? (
                     <Avatar/>

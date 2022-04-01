@@ -19,7 +19,6 @@ const Header = () => {
                 justifyContent: 'flex-end',
                 alignItems: 'center',
                 color: '#EEEEEE',
-                paddingLeft: '10px',
                 paddingTop: '10px',
                 paddingBottom: '10px',
             }}>
