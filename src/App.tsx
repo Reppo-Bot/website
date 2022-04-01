@@ -76,8 +76,10 @@ const App = () => {
     [],
     );
     useEffect(() => {
-        if(cookies.token === undefined && accessToken === ''){
-            return
+        console.log(cookies)
+        if(cookies.token === undefined && accessToken !== ''){
+            setAccessToken('')
+            setUser({name: '', id: '', avatar: ''})
         }
         if(cookies.token !== undefined && accessToken === ''){
             setAccessToken(cookies.token)
