@@ -16,7 +16,7 @@ const Authorize = () => {
             const user = await getUser(accessToken, tokenType)
             let expDate = new Date()
             expDate.setSeconds(expDate.getSeconds() + parseInt(expiresIn))
-            const payload = await authUser(accessToken, expDate.toString())
+            const payload = await authUser(accessToken, expDate.toLocaleString())
             context.setUser({name: user.username, id: user.id, avatar: user.avatar})
             context.setCookie('user', {name: user.username, id: user.id, avatar: user.avatar}, {expires: expDate})
             context.setCookie('token', accessToken, {expires: expDate})

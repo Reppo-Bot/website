@@ -73,9 +73,12 @@ export async function authUser(accessToken: string, expiration: string){
         const res = await fetch("http://web.localhost:8080/global/login", {
             method: 'POST',
             headers: {
-                authorization: `Bearer ${accessToken}`
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${accessToken}`
             },
-            body: JSON.stringify(expiration)
+            body: JSON.stringify({
+                timestamp: expiration
+            })
         })
         if(res.status !== 200){
             throw new Error("Invalid Login")
