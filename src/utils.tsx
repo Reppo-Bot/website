@@ -68,7 +68,7 @@ export const getDesignTokens = (mode: PaletteMode)=> ({
     }
 })
 
-export async function authUser(accessToken: string, expiration: string){
+export async function login(accessToken: string, expiration: string){
     try{
         const res = await fetch("http://web.localhost:8080/global/login", {
             method: 'POST',
@@ -88,5 +88,25 @@ export async function authUser(accessToken: string, expiration: string){
     catch (e){
         console.log(e)
         return undefined
+    }
+}
+
+export async function logout(accessToken: string){
+    try{
+        const res = await fetch("http://web.localhost:8080/global/logout", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${accessToken}`
+            }
+        })
+        if(res.status !== 200){
+            throw new Error("Failed to logout!")
+        }
+        return true
+    }
+    catch (e){
+        console.log(e)
+        return false
     }
 }

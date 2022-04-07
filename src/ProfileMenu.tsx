@@ -3,6 +3,7 @@ import {useState, MouseEvent, useContext} from 'react'
 import ThemeToggle from "./ThemeToggle"
 import PageContext from "./PageContext"
 import {useNavigate} from "react-router-dom"
+import {logout} from "./utils"
 
 function ProfileMenu(props: {user?: {id: string, avatar: string, name: string}}){
     const navigate = useNavigate()
@@ -15,7 +16,8 @@ function ProfileMenu(props: {user?: {id: string, avatar: string, name: string}})
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const logout = () => {
+    const handleLogout = () => {
+        logout(context.accessToken)
         context.setUser({name: '', id: '', avatar: ''})
         context.setCookie('user', {name: '', id: '', avatar: ''}, {expires: new Date()})
         context.setCookie('token', '', {expires: new Date()})
@@ -46,7 +48,7 @@ function ProfileMenu(props: {user?: {id: string, avatar: string, name: string}})
                     Login
                 </MenuItem>
             ) : (
-                <MenuItem onClick={logout}>
+                <MenuItem onClick={handleLogout}>
                     Logout
                 </MenuItem>
             )}
