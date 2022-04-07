@@ -130,3 +130,21 @@ export async function getTotalUserCount(){
     }
 }
 
+export async function getTotalServerCount(){
+    try{
+        const res = await fetch("http://web.localhost:8080/homepage/getTotalServerCount", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        if(res.status !== 200){
+            throw new Error("Failed to get all users!")
+        }
+        return (await res.json()).success
+    }
+    catch (e){
+        console.log(e)
+        return undefined
+    }
+}
