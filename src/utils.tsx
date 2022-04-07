@@ -139,7 +139,7 @@ export async function getTotalServerCount(){
             }
         })
         if(res.status !== 200){
-            throw new Error("Failed to get all users!")
+            throw new Error("Failed to get all servers!")
         }
         return (await res.json()).success
     }
