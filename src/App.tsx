@@ -1,67 +1,20 @@
 import React, {useState, useMemo, useEffect} from 'react';
 import PageContext from "./PageContext"
-import {createTheme, ThemeProvider, PaletteMode, styled, PaletteColorOptions, ThemeOptions} from "@mui/material"
+import {createTheme, ThemeProvider, PaletteMode} from "@mui/material"
 import Header from "./Header"
 import { Routes, Route, BrowserRouter} from "react-router-dom";
 import Authorize from "./Authorize"
 import Home from "./Home"
-
-const getDesignTokens = (mode: PaletteMode)=> ({
-    palette: {
-        mode,
-        ...(mode === 'light' ? {
-            // Light Mode Colors
-            primary: {
-                main: '#4851c3'
-            },
-            secondary: {
-                main: '#3a48e8'
-            },
-            text: {
-                primary: '#ffffff',
-                secondary: '#ffffff'
-            },
-            background: {
-                default: '#fdfcff',
-                paper: '#fdfcff'
-            },
-            error: {
-                main: '#be002d'
-            },
-            success: {
-                main: '#6fdc8e'
-            }
-        } : {
-            // Dark mode colors
-            primary: {
-                main :'#bcc2ff'
-            },
-            secondary: {
-                main: '#bcc2ff'
-            },
-            text: {
-                primary: '#111a95',
-                secondary: '#0001ad'
-            },
-            background: {
-                default: '#1a1c1e',
-                paper: '#1a1c1e'
-            },
-            error: {
-                main: '#be002d'
-            },
-            success: {
-                main: '#6fdc8e'
-            }
-        })
-    }
-})
+import {useCookies} from 'react-cookie'
+import {getDesignTokens} from './utils'
 
 const App = () => {
-    const [accessToken, setAccessToken] = React.useState('')
-    const [expiration, setExpiration] = React.useState(0)
-    const [mode, setMode] = React.useState<PaletteMode>('dark');
-    const colorMode = React.useMemo(
+    const [accessToken, setAccessToken] = useState('')
+    const [expiration, setExpiration] = useState(0)
+    const [mode, setMode] = useState<PaletteMode>('dark');
+    const [user, setUser] = useState({name: '', id: '', avatar: ''})
+    const [cookies, setCookie] = useCookies(['user', 'token', 'mode'])
+    const colorMode = useMemo(
         () => ({
         // The dark mode switch would invoke this method
         toggleColorMode: () => {
@@ -72,6 +25,17 @@ const App = () => {
         }),
     [],
     );
+    useEffect(() => {
+        if(cookies.token === undefined && accessToken !== ''){
+            setAccessToken('')
+            setUser({name: '', id: '', avatar: ''})
+        }
+        if(cookies.token !== undefined && accessToken === ''){
+            setAccessToken(cookies.token)
+            setMode(cookies.mode)
+            setUser({name: cookies.user.name, id: cookies.user.id, avatar: cookies.user.avatar})
+        }
+    },[user, cookies, accessToken])
     const setTokenInfo = (token: string, exp: number, callback: () => {}) => {
         setAccessToken(token)
         setExpiration(exp)
@@ -81,16 +45,19 @@ const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <PageContext.Provider value={{
-                colorMode: colorMode,
+                colorMode:    colorMode,
                 setTokenInfo: setTokenInfo,
-                accessToken: accessToken,
-                expiration: expiration
+                accessToken:  accessToken,
+                expiration:   expiration,
+                setUser:      setUser,
+                user:         user,
+                setCookie:   setCookie
             }}>
             <BrowserRouter>
                 <Header/>
                 <Routes>
                     <Route path='/' element={<Home/>}/>
-                    <Route path='auth' element={<Authorize/>}/>
+                    <Route path='/auth' element={<Authorize/>}/>
                 </Routes>
             </BrowserRouter>
             </PageContext.Provider>
