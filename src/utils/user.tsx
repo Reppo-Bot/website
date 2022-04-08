@@ -43,3 +43,27 @@ export async function getReps(userid :string){
         return undefined
     }
 }
+
+export async function getRecentTransactions(userid :string, num: number){
+    try{
+        const res = await fetch("http://web.localhost:8080/user/getRecentTransactions", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userid,
+                num
+                })
+        })
+        if(res.status !== 200){
+            const payload = await res.json()
+            throw new Error(payload.failed)
+        }
+        return (await res.json()).success
+    }
+    catch (e){
+        console.log(e)
+        return undefined
+    }
+}
