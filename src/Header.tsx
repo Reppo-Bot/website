@@ -6,6 +6,7 @@ import {
 } from "@mui/material"
 import PageContext from "./PageContext"
 import ProfileMenu from "./ProfileMenu"
+import {getConfig} from "./utils/config"
 
 const Header = () => {
     const context = useContext(PageContext)
