@@ -1,7 +1,7 @@
 import {useEffect, useContext, useState} from 'react'
 import PageContext from "./PageContext"
 import { useNavigate } from "react-router-dom";
-import {getUser, login} from "./utils"
+import {getUser, login} from "./utils/global"
 import {Typography, Backdrop, CircularProgress} from "@mui/material"
 
 type state = "success" | "failed" | "waiting"

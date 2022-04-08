@@ -3,7 +3,7 @@ import {useState, MouseEvent, useContext} from 'react'
 import ThemeToggle from "./ThemeToggle"
 import PageContext from "./PageContext"
 import {useNavigate} from "react-router-dom"
-import {logout} from "./utils"
+import {logout} from "./utils/global"
 
 function ProfileMenu(props: {user?: {id: string, avatar: string, name: string}}){
     const navigate = useNavigate()
