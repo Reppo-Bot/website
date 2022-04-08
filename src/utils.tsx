@@ -171,3 +171,22 @@ export async function search(searchString: string){
         return undefined
     }
 }
+
+export async function getHourTransactions(){
+    try{
+        const res = await fetch("http://web.localhost:8080/homepage/getHourTransactions", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        if(res.status !== 200){
+            throw new Error("Failed to get Hour Transactions!")
+        }
+        return (await res.json()).success
+    }
+    catch (e){
+        console.log(e)
+        return undefined
+    }
+}
