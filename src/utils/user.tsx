@@ -67,3 +67,72 @@ export async function getRecentTransactions(userid :string, num: number){
         return undefined
     }
 }
+
+export async function getActivityForDay(userid :string){
+    try{
+        const res = await fetch("http://web.localhost:8080/user/getActivityForDay", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userid
+                })
+        })
+        if(res.status !== 200){
+            const payload = await res.json()
+            throw new Error(payload.failed)
+        }
+        return (await res.json()).success
+    }
+    catch (e){
+        console.log(e)
+        return undefined
+    }
+}
+
+export async function getActivityForMonth(userid :string){
+    try{
+        const res = await fetch("http://web.localhost:8080/user/getActivityForMonth", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userid
+                })
+        })
+        if(res.status !== 200){
+            const payload = await res.json()
+            throw new Error(payload.failed)
+        }
+        return (await res.json()).success
+    }
+    catch (e){
+        console.log(e)
+        return undefined
+    }
+}
+
+export async function getActivityForYear(userid :string){
+    try{
+        const res = await fetch("http://web.localhost:8080/user/getActivityForYear", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userid
+                })
+        })
+        if(res.status !== 200){
+            const payload = await res.json()
+            throw new Error(payload.failed)
+        }
+        return (await res.json()).success
+    }
+    catch (e){
+        console.log(e)
+        return undefined
+    }
+}
