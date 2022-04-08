@@ -90,3 +90,28 @@ export async function removeServer(token: string, serverid: string){
         return undefined
     }
 }
+
+export async function updateConfig(token: string, serverid: string, config: object){
+    try{
+        const res = await fetch("http://web.localhost:8080/private/removeServer", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                serverid,
+                config
+            })
+        })
+        if(res.status !== 200){
+            const payload = await res.json()
+            throw new Error(payload.failed)
+        }
+        return (await res.json()).success
+    }
+    catch (e){
+        console.log(e)
+        return undefined
+    }
+}
