@@ -61,7 +61,7 @@ const ThemeToggle = () => {
         <FormGroup>
             <FormControlLabel
                 control={
-                    <ThemeModeSwitch onChange={context.colorMode.toggleColorMode} defaultChecked/>
+                    <ThemeModeSwitch onChange={context.colorMode.toggleColorMode} checked={theme.palette.mode === 'dark'}/>
                 }
                 label={`${theme.palette.mode === 'light' ? "Light" : "Dark"} Mode`} />
         </FormGroup>
