@@ -1,7 +1,7 @@
 import {useEffect, useContext, useState} from 'react'
 import PageContext from "./PageContext"
 import { useNavigate } from "react-router-dom";
-import {getUser, authUser} from "./utils"
+import {getUser, login} from "./utils/global"
 import {Typography, Backdrop, CircularProgress} from "@mui/material"
 
 type state = "success" | "failed" | "waiting"
@@ -20,7 +20,7 @@ const Authorize = () => {
             const user = await getUser(accessToken, tokenType)
             let expDate = new Date()
             expDate.setSeconds(expDate.getSeconds() + parseInt(expiresIn))
-            const payload = await authUser(accessToken, expDate.toLocaleString())
+            const payload = await login(accessToken, expDate.toLocaleString())
             if(!payload){
                 setAuthState("failed")
                 return

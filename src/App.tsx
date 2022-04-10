@@ -6,7 +6,7 @@ import { Routes, Route, BrowserRouter} from "react-router-dom";
 import Authorize from "./Authorize"
 import Home from "./Home"
 import {useCookies} from 'react-cookie'
-import {getDesignTokens} from './utils'
+import {getDesignTokens} from './utils/global'
 
 const App = () => {
     const [accessToken, setAccessToken] = useState('')
