@@ -57,11 +57,16 @@ const ThemeModeSwitch = styled(Switch)(({theme}) => ({
 const ThemeToggle = () => {
     const theme = useTheme();
     const context = useContext(PageContext)
+
+    const toggleThemeMode = () => {
+        context.setCookie('mode', theme.palette.mode === 'light' ? 'dark' : 'light')
+        context.colorMode.toggleColorMode()
+    }
     return (
         <FormGroup>
             <FormControlLabel
                 control={
-                    <ThemeModeSwitch onChange={context.colorMode.toggleColorMode} checked={theme.palette.mode === 'dark'}/>
+                    <ThemeModeSwitch onChange={toggleThemeMode} checked={theme.palette.mode === 'dark'}/>
                 }
                 label={`${theme.palette.mode === 'light' ? "Light" : "Dark"} Mode`} />
         </FormGroup>
