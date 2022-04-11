@@ -1,4 +1,6 @@
 import {Box, Typography} from "@mui/material"
+import SearchBox from "./SearchBox"
+
 const Home = () => {
     return(
         <>
@@ -10,12 +12,16 @@ const Home = () => {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                <Typography variant="h1" color="white"
-                    sx={{
-                        fontSize: '10em'
-                    }}>
-                    Reppo
-                </Typography>
+                <div>
+                    <Typography variant="h1" color="white"
+                        sx={{
+                            fontSize: '10em',
+                            paddingBottom: '50px'
+                        }}>
+                        Reppo
+                    </Typography>
+                    <SearchBox/>
+                </div>
             </Box>
             <div style={{
                 position: 'absolute',
