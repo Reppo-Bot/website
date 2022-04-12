@@ -7,6 +7,7 @@ import Authorize from "./Authorize"
 import Home from "./Home"
 import {useCookies} from 'react-cookie'
 import {getDesignTokens} from './utils/global'
+import Config from './Config'
 
 const App = () => {
     const [accessToken, setAccessToken] = useState('')
@@ -38,10 +39,9 @@ const App = () => {
             setUser({name: cookies.user.name, id: cookies.user.id, avatar: cookies.user.avatar})
         }
     },[user, cookies, accessToken])
-    const setTokenInfo = (token: string, exp: number, callback: () => {}) => {
+    const setTokenInfo = (token: string, exp: number) => {
         setAccessToken(token)
         setExpiration(exp)
-        callback()
     }
     const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
     return (
@@ -60,6 +60,7 @@ const App = () => {
                 <Routes>
                     <Route path='/' element={<Home/>}/>
                     <Route path='/auth' element={<Authorize/>}/>
+                    <Route path='/config' element={<Config/>}/>
                 </Routes>
             </BrowserRouter>
             </PageContext.Provider>

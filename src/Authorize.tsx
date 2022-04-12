@@ -29,7 +29,8 @@ const Authorize = () => {
             context.setUser({name: user.username, id: user.id, avatar: user.avatar})
             context.setCookie('user', {name: user.username, id: user.id, avatar: user.avatar}, {expires: expDate})
             context.setCookie('token', accessToken, {expires: expDate})
-            context.setTokenInfo(accessToken, expiresIn, () => navigate('/'))
+            context.setTokenInfo(accessToken, parseInt(expiresIn))
+            navigate('/')
         }
         onAuth()
     },[navigate, context])

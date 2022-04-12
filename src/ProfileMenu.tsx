@@ -22,7 +22,8 @@ function ProfileMenu(props: {user?: {id: string, avatar: string, name: string}})
         context.setCookie('user', {name: '', id: '', avatar: ''}, {expires: new Date()})
         context.setCookie('token', '', {expires: new Date()})
         handleClose()
-        context.setTokenInfo('', '', () => navigate('/'))
+        context.setTokenInfo('', 0)
+        navigate('/')
     }
     return (
         <>
@@ -44,13 +45,22 @@ function ProfileMenu(props: {user?: {id: string, avatar: string, name: string}})
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             >
             {props.user === undefined ? (
-                <MenuItem onClick={() => {window.location.href="https://discord.com/api/oauth2/authorize?client_id=852589582733541416&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth&response_type=token&scope=identify"}}>
-                    Login
-                </MenuItem>
+                // logged out
+                <>
+                    <MenuItem onClick={() => {window.location.href="https://discord.com/api/oauth2/authorize?client_id=852589582733541416&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth&response_type=token&scope=identify"}}>
+                        Login
+                    </MenuItem>
+                </>
             ) : (
-                <MenuItem onClick={handleLogout}>
-                    Logout
-                </MenuItem>
+                // Logged in
+                <>
+                    <MenuItem onClick={() => navigate('/config')}>
+                        Config
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                        Logout
+                    </MenuItem>
+                </>
             )}
                 <MenuItem>
                     <ThemeToggle/>

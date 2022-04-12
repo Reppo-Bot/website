@@ -1,11 +1,17 @@
 import React from 'react';
+type user = {
+    name: string,
+    id: string,
+    avatar: string
+}
+
 
 const PageContext = React.createContext({
     colorMode: {
         toggleColorMode: () => {}
     },
-    setTokenInfo: (token, expiration, callback) => {},
-    setUser: (user) => {},
+    setTokenInfo: (token: string, expiration: number) => {},
+    setUser: (user: user) => {},
     user: {
         name: '',
         id: '',
@@ -13,7 +19,7 @@ const PageContext = React.createContext({
     },
     accessToken: '',
     expiration: 0,
-    setCookie: (name, value, options?) => {}
+    setCookie: (name: ("mode" | "user" | "token"), value: any, options?: any) => {}
 })
 
 export default PageContext
