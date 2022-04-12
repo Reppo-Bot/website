@@ -32,7 +32,9 @@ const App = () => {
         }
         if(cookies.token !== undefined && accessToken === ''){
             setAccessToken(cookies.token)
-            setMode(cookies.mode)
+            if(cookies.mode !== undefined){
+                setMode(cookies.mode)
+            }
             setUser({name: cookies.user.name, id: cookies.user.id, avatar: cookies.user.avatar})
         }
     },[user, cookies, accessToken])

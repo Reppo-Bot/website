@@ -8,7 +8,7 @@ type state = "success" | "failed" | "waiting"
 const Authorize = () => {
     const navigate = useNavigate()
     const context = useContext(PageContext)
-    const [authState, setAuthState] = useState("waiting")
+    const [authState, setAuthState] = useState<state>("waiting")
     useEffect(() => {
         async function onAuth(){
             const fragment = new URLSearchParams(window.location.hash.slice(1));

@@ -4,9 +4,9 @@ import {
     Typography,
     Link
 } from "@mui/material"
+import {Link as RouterLink} from "react-router-dom"
 import PageContext from "./PageContext"
 import ProfileMenu from "./ProfileMenu"
-import {getConfig} from "./utils/config"
 
 const Header = () => {
     const context = useContext(PageContext)
@@ -23,6 +23,18 @@ const Header = () => {
                 paddingTop: '10px',
                 paddingBottom: '10px',
             }}>
+            <RouterLink to='/' style={{
+                textDecoration: 'none',
+                marginRight: 'auto',
+                paddingLeft: '10px',}}>
+                <Typography
+                    sx={{
+                        fontWeight: '350',
+                        color: '#bcc2ff'}}
+                    variant="h4">
+                    Reppo
+                </Typography>
+            </RouterLink>
             {context.accessToken === '' ? (
                 <>
                     <Link
