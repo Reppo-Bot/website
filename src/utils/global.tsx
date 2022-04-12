@@ -1,4 +1,5 @@
 import {PaletteMode} from "@mui/material"
+import ENV_URL from "./env"
 
 export async function getUser(accessToken: string, tokenType: string) {
     try{
@@ -70,7 +71,7 @@ export const getDesignTokens = (mode: PaletteMode)=> ({
 
 export async function login(accessToken: string, expiration: string){
     try{
-        const res = await fetch("http://web.localhost:8080/global/login", {
+        const res = await fetch(`http://web.${ENV_URL}/global/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -93,7 +94,7 @@ export async function login(accessToken: string, expiration: string){
 
 export async function logout(accessToken: string){
     try{
-        const res = await fetch("http://web.localhost:8080/global/logout", {
+        const res = await fetch(`http://web.${ENV_URL}/global/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
