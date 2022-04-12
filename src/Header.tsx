@@ -23,6 +23,18 @@ const Header = () => {
                 paddingTop: '10px',
                 paddingBottom: '10px',
             }}>
+            <RouterLink to='/' style={{
+                textDecoration: 'none',
+                marginRight: 'auto',
+                paddingLeft: '10px',}}>
+                <Typography
+                    sx={{
+                        fontWeight: '350',
+                        color: '#bcc2ff'}}
+                    variant="h4">
+                    Reppo
+                </Typography>
+            </RouterLink>
             {context.accessToken === '' ? (
                 <>
                     <Link
@@ -36,18 +48,6 @@ const Header = () => {
                 </>
             ) : (
                 <>
-                    <RouterLink to='/' style={{
-                                textDecoration: 'none',
-                                marginRight: 'auto',
-                                paddingLeft: '10px',}}>
-                        <Typography
-                            sx={{
-                                fontWeight: '350',
-                                color: '#bcc2ff'}}
-                            variant="h4">
-                            Reppo
-                        </Typography>
-                    </RouterLink>
                     <Typography sx={{marginRight: '10px'}}>
                         {context.user.name}
                     </Typography>
