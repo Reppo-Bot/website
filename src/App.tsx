@@ -8,7 +8,7 @@ import Home from "./Home"
 import {useCookies} from 'react-cookie'
 import {getDesignTokens} from './utils/global'
 import Config from './Config'
-
+import Gatekeeper from './Gatekeeper'
 const App = () => {
     const [accessToken, setAccessToken] = useState('')
     const [expiration, setExpiration] = useState(0)
@@ -60,7 +60,7 @@ const App = () => {
                 <Routes>
                     <Route path='/' element={<Home/>}/>
                     <Route path='/auth' element={<Authorize/>}/>
-                    <Route path='/config' element={<Config/>}/>
+                    <Route path='/config' element={<Gatekeeper><Config/></Gatekeeper>}/>
                 </Routes>
             </BrowserRouter>
             </PageContext.Provider>
