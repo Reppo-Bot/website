@@ -16,7 +16,9 @@ const Home = () => {
                     <Typography variant="h1" color="white"
                         sx={{
                             fontSize: '10em',
-                            paddingBottom: '50px'
+                            paddingBottom: '50px',
+                            paddingTop: '75px'
+
                         }}>
                         Reppo
                     </Typography>
@@ -24,14 +26,11 @@ const Home = () => {
                 </div>
             </Box>
             <div style={{
-                position: 'absolute',
                 top: '0',
                 left: '0',
                 width: '100',
                 overflow: 'hidden',
                 lineHeight: '0',
-                zIndex: -1,
-                paddingTop: '50vh'
             }}>
                 <svg
                     style={{
