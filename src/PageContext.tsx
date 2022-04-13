@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 type user = {
     name: string,
     id: string,

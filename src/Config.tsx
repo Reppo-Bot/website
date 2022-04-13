@@ -1,16 +1,23 @@
 import {Typography} from "@mui/material"
 import PageContext from "./PageContext"
-import {useContext, useEffect} from "react"
+import {useContext, useEffect, useState} from "react"
 import { useNavigate } from "react-router-dom";
+import Sidebar from "./config/Sidebar"
+import ConfigContext, {bot} from "./config/ConfigContext"
 
 const Config = () => {
     const navigate = useNavigate()
 	const context = useContext(PageContext)
+	const [bot, _setBot] = useState<bot | undefined>(undefined)
+	const setBot = (bot: bot) => {_setBot(bot)}
 	return (
 		<>
-			<Typography variant="h1" sx={{paddingTop: 20}}>
-				Hello world
-			</Typography>
+			<ConfigContext.Provider value={{
+				bot: bot,
+				setBot: setBot
+			}}>
+				<Sidebar/>
+			</ConfigContext.Provider>
 		</>
 	)
 }
