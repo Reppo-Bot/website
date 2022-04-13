@@ -25,7 +25,7 @@ const Sidebar = () => {
 	return (
         <Box component="div" sx={{
                 position: "fixed",
-                width: '10vw',
+                width: '175px',
                 bgcolor: theme.palette.background.default,
                 height: '100%',
                 color: theme.palette.text.primary,

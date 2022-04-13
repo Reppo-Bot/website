@@ -7,8 +7,9 @@ import Authorize from "./Authorize"
 import Home from "./Home"
 import {useCookies} from 'react-cookie'
 import {getDesignTokens} from './utils/global'
-import Config from './Config'
+import Config from './config/Config'
 import Gatekeeper from './Gatekeeper'
+
 const App = () => {
     const [accessToken, setAccessToken] = useState('')
     const [expiration, setExpiration] = useState(0)

@@ -1,9 +1,10 @@
 import {Typography} from "@mui/material"
-import PageContext from "./PageContext"
+import PageContext from "./../PageContext"
 import {useContext, useEffect, useState} from "react"
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./config/Sidebar"
-import ConfigContext, {bot} from "./config/ConfigContext"
+import Sidebar from "./Sidebar"
+import ConfigContext, {bot} from "./ConfigContext"
+import EditConfig from "./EditConfig"
 
 const Config = () => {
     const navigate = useNavigate()
@@ -17,6 +18,7 @@ const Config = () => {
 				setBot: setBot
 			}}>
 				<Sidebar/>
+				<EditConfig/>
 			</ConfigContext.Provider>
 		</>
 	)
