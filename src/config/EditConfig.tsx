@@ -2,15 +2,17 @@ import ConfigContext from "./ConfigContext"
 import PageContext from "./../PageContext"
 import {
 	Typography,
-	Box
+	Box,
+	useTheme
 } from "@mui/material"
 import {useContext} from "react"
 
 const EditConfig = () => {
 	const botContext = useContext(ConfigContext)
 	const context = useContext(PageContext)
+	const theme = useTheme()
 	return (
-		<Box sx={{paddingLeft: "175px", marginLeft: "10px", paddingTop: "76px"}}>
+		<Box sx={{paddingLeft: "175px", marginLeft: "10px", paddingTop: "76px", color: (theme.palette.mode === "light" ? "white" : "black")}}>
 			{botContext.bot !== undefined? (
 			<>
 				{console.log(botContext.bot)}

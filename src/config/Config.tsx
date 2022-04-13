@@ -11,11 +11,18 @@ const Config = () => {
 	const context = useContext(PageContext)
 	const [bot, _setBot] = useState<bot | undefined>(undefined)
 	const setBot = (bot: bot) => {_setBot(bot)}
+    useEffect(()=>{
+        let color = theme.palette.text.primary
+        if(theme.palette.mode === 'light'){
+            color = theme.palette.secondary.main
+        }
+        document.body.style.background = color
+    },[theme])
 	const prettyCorner = (
 	<>
 		<div style={{
 			position: 'absolute',
-			background: 'white',
+			background: theme.palette.mode === "light" ? theme.palette.secondary.main : "white",
 			borderRadius: '25px 0 0 0',
 			width: '100px',
 			height: '100px',

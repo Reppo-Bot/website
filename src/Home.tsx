@@ -1,19 +1,29 @@
-import {Box, Typography} from "@mui/material"
+import {Box, Typography, useTheme} from "@mui/material"
 import SearchBox from "./SearchBox"
+import {useEffect} from "react"
 
 const Home = () => {
+    const theme = useTheme()
+    useEffect(()=>{
+        let color = theme.palette.text.primary
+        if(theme.palette.mode === 'light'){
+            color = theme.palette.secondary.main
+        }
+        document.body.style.background = color
+    },[theme])
     return(
         <>
             <Box
                 sx={{
-                    bgcolor: '#1a1c1e',
+                    bgcolor: theme.palette.background.default,
+                    color: theme.palette.text.primary,
                     minHeight: '50vh',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
                 <div>
-                    <Typography variant="h1" color="white"
+                    <Typography variant="h1"
                         sx={{
                             fontSize: '10em',
                             paddingBottom: '50px',
@@ -44,7 +54,7 @@ const Home = () => {
                     viewBox="0 0 1200 120"
                     preserveAspectRatio="none">
                     <path
-                        style={{fill: '#1A1C1E'}}
+                        style={{fill: theme.palette.background.default}}
                         d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
                 </svg>
             </div>
