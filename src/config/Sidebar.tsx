@@ -31,15 +31,12 @@ const Sidebar = () => {
                 color: theme.palette.text.primary,
                 overflowX: 'hidden',
                 marginTop: '76px',
-                borderRight: 2,
-                borderColor: theme.palette.grey[500]
             }}>
             <Typography variant="h6" sx={{paddingLeft: '10px'}}>
             	Bot List
             </Typography>
             {bots.map((bot: any)=>
             	<div key={bot.serverid}>
-            		<hr/>
 	            	<Button fullWidth onClick={() => botContext.setBot(bot)} sx={{color: theme.palette.text.primary}}>
 	            		{bot.config.name}
 	            	</Button>
