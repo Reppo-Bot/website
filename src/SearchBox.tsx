@@ -2,7 +2,8 @@ import {
 	Autocomplete,
 	TextField,
 	Typography,
-	Avatar
+	Avatar,
+	useTheme
 } from "@mui/material"
 import {useState, useEffect} from 'react'
 import {search} from './utils/homepage'
@@ -26,6 +27,7 @@ type userEntry = {
 const SearchBox = () => {
 	const [options, setOptions] = useState<(serverEntry|userEntry)[]>([])
 	const [inputValue, setInputValue] = useState('')
+	const theme  = useTheme()
 	useEffect(() => {
 		if(inputValue === ''){
 			setOptions([])
@@ -73,7 +75,7 @@ const SearchBox = () => {
 				                ) : (
 				                    <Avatar src={`https://cdn.discordapp.com/avatars/${option.id}/${option.avatar}?size=480`} alt={option.name}/>
 				                )}
-								<Typography variant="h6" color="white" sx={{paddingLeft: '10px'}}>
+								<Typography variant="h6" sx={{paddingLeft: '10px', color: theme.palette.text.primary}}>
 									{option.name}
 								</Typography>
 							</Link>
