@@ -14,14 +14,11 @@ const Sidebar = () => {
 	const context = useContext(PageContext)
 	const botContext = useContext(ConfigContext)
 	const [bots, setBots] = useState<any>([])
-	const handleBotClick = (res:any) => {
-		console.log(res)
-	}
 	useEffect(()=>{
 		getBots(context.accessToken).then((bots)=>{
 			setBots(bots)
 		})
-	},[theme])
+	},[theme, context.accessToken])
 	return (
         <Box component="div" sx={{
                 position: "fixed",

@@ -1,14 +1,10 @@
-import {Typography, useTheme} from "@mui/material"
-import PageContext from "./../PageContext"
-import {useContext, useEffect, useState} from "react"
-import { useNavigate } from "react-router-dom";
+import {useTheme} from "@mui/material"
+import {useEffect, useState} from "react"
 import Sidebar from "./Sidebar"
 import ConfigContext, {bot} from "./ConfigContext"
 import EditConfig from "./EditConfig"
 const Config = () => {
     const theme = useTheme();
-    const navigate = useNavigate()
-	const context = useContext(PageContext)
 	const [bot, _setBot] = useState<bot | undefined>(undefined)
 	const setBot = (bot: bot) => {_setBot(bot)}
     useEffect(()=>{

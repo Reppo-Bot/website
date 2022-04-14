@@ -10,7 +10,7 @@ const Gatekeeper = (props:any) =>{
 		if(context.accessToken === ''){
 			navigate('/')
 		}
-	},[context.accessToken])
+	},[context.accessToken, navigate])
 	return (
 		<>
 			{context.accessToken === '' ? (
