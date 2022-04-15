@@ -9,6 +9,7 @@ import {
 } from "@mui/material"
 import {styled} from "@mui/system"
 import {useContext, useEffect} from "react"
+import ConfigPane from './ConfigPane'
 
 const PrettyPaper = styled(Paper)({
 	padding: '10px',
@@ -28,49 +29,27 @@ const EditConfig = () => {
 			paddingTop: "100px",
 			color: (theme.palette.mode === "light" ? "white" : "black")
 		}}>
-			{botContext.bot !== undefined? (
+			{botContext.bot !== undefined ? (
 			<>
 				<Grid container justifyContent='center'>
 					<Typography variant="h3">
 						{botContext.bot.config.name}
 					</Typography>
 				</Grid>
-				<Grid container xs={12} spacing={4} sx={{padding: '20px'}}>
-					<Grid item xs={4}>
+				<Grid container xs={12} justifyContent="space-around" spacing={4} sx={{padding: '20px'}}>
+					<Grid item xs={3}>
 						<PrettyPaper elevation={12}>
-							<Typography variant="h6">
-								Ranks
-							</Typography>
-							{botContext.bot.config.ranks.map((rank: {name: string, minRep: number})=>
-								<Typography key={rank.name} variant="body1">
-									{rank.name}: {rank.minRep}
-								</Typography>
-							)}
+							<ConfigPane type="Ranks"/>
 						</PrettyPaper>
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={3}>
 						<PrettyPaper elevation={12}>
-							<Typography variant="h6">
-								Roles
-							</Typography>
-							{botContext.bot.config.roles.map((role: {name: string, roleid: string, priority: number})=>
-								<Typography key={role.name} variant="body1">
-									{role.name}: {role.roleid}, {role.priority}
-								</Typography>
-							)}
+							<ConfigPane type="Roles"/>
 						</PrettyPaper>
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={3}>
 						<PrettyPaper elevation={12}>
-							<Typography variant="h6">
-								Commands
-							</Typography>
-							{botContext.bot.config.commands.map((command: {name: string, description: string, permissionsType: string, type: string, permissions: any})=>
-								<Typography key={command.name} variant="body1">
-									{command.name}: {command.description}, {command.type}
-									{command.permissionsType}: {JSON.stringify(command.permissions)}
-								</Typography>
-							)}
+							<ConfigPane type="Commands"/>
 						</PrettyPaper>
 					</Grid>
 				</Grid>
