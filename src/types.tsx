@@ -6,12 +6,9 @@ type otherOptions = {
 	amount?: number
 }
 export type command = {
-	name: string,
 	type: string,
-	permissionsType: string,
+	permType: string,
 	description: string,
-	otherOptions?: otherOptions
-	permissions?: Array<{options: otherOptions, allowed: string, allowedOn: Array<string>}>,
 }
 export type role = {
 	name: string,
@@ -21,4 +18,10 @@ export type role = {
 export type rank = {
 	name: string,
 	minRep: number
+}
+export type permission = {
+	command: string,
+	allowed: string,
+	on: Array<string>,
+	opts: otherOptions
 }

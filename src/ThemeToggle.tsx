@@ -59,7 +59,7 @@ const ThemeToggle = () => {
     const context = useContext(PageContext)
 
     const toggleThemeMode = () => {
-        context.setCookie('mode', theme.palette.mode === 'light' ? 'dark' : 'light')
+        context.setCookie('mode', theme.palette.mode === 'light' ? 'dark' : 'light',{secure: true})
         context.colorMode.toggleColorMode()
     }
     return (

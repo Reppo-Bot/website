@@ -20,51 +20,51 @@ const SetOptions = (props: {command: command, index: number, permType: string, h
 	const [maxCallsError, setMaxCallsError] = useState<string>('')
 	const botContext = useContext(ConfigContext)
 
-	const handleSave = () => {
-		const _maxAmount = parseInt(maxAmount)
-		const _minAmount = parseInt(minAmount)
-		const _cooldown = parseInt(cooldown)
-		const _maxCalls = parseInt(maxCalls)
-		let errors = 0
-		if(isNaN(_maxAmount)){
-			setMaxAmountError("Must set amount!")
-			errors += 1
-		} else setMaxAmountError('')
-		if(isNaN(_minAmount)){
-			setMinAmountError("Must set amount!")
-			errors += 1
-		} else setMinAmountError('')
-		if(isNaN(_cooldown) || _cooldown < -1){
-			setCooldownError("Must set cooldown!")
-			errors += 1
-		} else setCooldownError('')
-		if(isNaN(_maxCalls) || _maxCalls <= 0){
-			setMaxCallsError("Must max calls must be greater than 0!")
-			errors += 1
-		} else setMaxCallsError('')
-		if(errors) return
-		if(botContext.bot === undefined) return
-		const command = {
-			...props.command,
-			otherOptions: {
-				maxAmount: _maxAmount,
-				minAmount: _minAmount,
-				cooldown: _cooldown,
-				maxCalls: _maxCalls
-			}
-		}
-		let newCommandList = botContext.bot.config.commands
-		newCommandList[props.index] = command
-		botContext.setBot({
-			...botContext.bot,
-			config: {
-				...botContext.bot.config,
-				commands: newCommandList
-			}
-		})
-		props.handleClose()
+	// const handleSave = () => {
+	// 	const _maxAmount = parseInt(maxAmount)
+	// 	const _minAmount = parseInt(minAmount)
+	// 	const _cooldown = parseInt(cooldown)
+	// 	const _maxCalls = parseInt(maxCalls)
+	// 	let errors = 0
+	// 	if(isNaN(_maxAmount)){
+	// 		setMaxAmountError("Must set amount!")
+	// 		errors += 1
+	// 	} else setMaxAmountError('')
+	// 	if(isNaN(_minAmount)){
+	// 		setMinAmountError("Must set amount!")
+	// 		errors += 1
+	// 	} else setMinAmountError('')
+	// 	if(isNaN(_cooldown) || _cooldown < -1){
+	// 		setCooldownError("Must set cooldown!")
+	// 		errors += 1
+	// 	} else setCooldownError('')
+	// 	if(isNaN(_maxCalls) || _maxCalls <= 0){
+	// 		setMaxCallsError("Must max calls must be greater than 0!")
+	// 		errors += 1
+	// 	} else setMaxCallsError('')
+	// 	if(errors) return
+	// 	if(botContext.bot === undefined) return
+	// 	const command = {
+	// 		...props.command,
+	// 		otherOptions: {
+	// 			maxAmount: _maxAmount,
+	// 			minAmount: _minAmount,
+	// 			cooldown: _cooldown,
+	// 			maxCalls: _maxCalls
+	// 		}
+	// 	}
+	// 	let newCommandList = botContext.bot.config.commands
+	// 	newCommandList[props.index] = command
+	// 	botContext.setBot({
+	// 		...botContext.bot,
+	// 		config: {
+	// 			...botContext.bot.config,
+	// 			commands: newCommandList
+	// 		}
+	// 	})
+	// 	props.handleClose()
 
-	}
+	// }
 	useEffect(()=>{
 		!!maxAmountError && setMaxAmountError('')
 	},[maxAmount, maxAmountError])
@@ -77,20 +77,20 @@ const SetOptions = (props: {command: command, index: number, permType: string, h
 	useEffect(()=>{
 		!!maxCallsError && setMaxCallsError('')
 	},[maxCalls, maxCallsError])
-	useEffect(()=>{
-		if(props.command.otherOptions === undefined) {
-			setMaxAmount('')
-			setMinAmount('')
-			setCooldown('')
-			setMaxCalls('')
-			return
-		}
-		const opts = props.command.otherOptions
-		setMaxAmount(opts.maxAmount ? opts.maxAmount.toString() : '')
-		setMinAmount(opts.minAmount ? opts.minAmount.toString() : '')
-		setCooldown(opts.cooldown ? opts.cooldown.toString() : '')
-		setMaxCalls(opts.maxCalls ? opts.maxCalls.toString() : '')
-	},[props.command])
+	// useEffect(()=>{
+	// 	if(props.command.otherOptions === undefined) {
+	// 		setMaxAmount('')
+	// 		setMinAmount('')
+	// 		setCooldown('')
+	// 		setMaxCalls('')
+	// 		return
+	// 	}
+	// 	const opts = props.command.otherOptions
+	// 	setMaxAmount(opts.maxAmount ? opts.maxAmount.toString() : '')
+	// 	setMinAmount(opts.minAmount ? opts.minAmount.toString() : '')
+	// 	setCooldown(opts.cooldown ? opts.cooldown.toString() : '')
+	// 	setMaxCalls(opts.maxCalls ? opts.maxCalls.toString() : '')
+	// },[props.command])
 	return (
 		<>
 		<Grid sx={{padding: '10px'}} container spacing={2}>
@@ -142,7 +142,7 @@ const SetOptions = (props: {command: command, index: number, permType: string, h
 			<Button sx={{marginRight: 'auto'}} onClick={props.handleBack}>
 				Back
 			</Button>
-			<Button onClick={handleSave}>
+			<Button>
 				Save
 			</Button>
 			<Button onClick={props.handleClose}>

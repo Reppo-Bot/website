@@ -11,17 +11,20 @@ import {
 	FormControl,
 	InputLabel
 } from "@mui/material"
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {command} from "./../types"
 import AdjustOptions from "./permissionDialogs/AdjustOptions"
 import BanOptions from "./permissionDialogs/BanOptions"
 import SetOptions from "./permissionDialogs/SetOptions"
+import ConfigContext from "./ConfigContext"
 
-const CommandDialogController = (props: {open: number, selected: command | null, onClose: () => void}) => {
-	const [step, setStep] = useState<number>(0)
-	const [command, setCommand] = useState<command | null>(props.selected)
 
-	const [name, setName] = useState<string>('')
+
+const CommandDialogController = (props: {open: boolean, selected: [command | null, string], onClose: () => void}) => {
+	const [command, setCommand] = useState<command | null>(props.selected[0])
+	const botContext = useContext(ConfigContext)
+
+	const [name, setName] = useState<string>(props.selected[1])
 	const [nameError, setNameError] = useState<string>('')
 	const [commandType, setCommandType] = useState<string>('')
 	const [commandTypeError, setCommandTypeError] = useState<string>('')
@@ -29,40 +32,36 @@ const CommandDialogController = (props: {open: number, selected: command | null,
 	const [descError, setDescError] = useState<string>('')
 	const [permType, setPermType] = useState<string>('all')
 	const [permTypeError, setPermTypeError] = useState<string>('')
-	const [permissionDialog, setPermissionDialog] = useState<any>(null)
 
 	useEffect(()=>{
-		!!nameError && setNameError('')
-	},[name, nameError])
+		setNameError('')
+	},[name])
 	useEffect(()=>{
-		!!descError && setDescError('')
-	},[desc, descError])
+		setDescError('')
+	},[desc])
 	useEffect(()=>{
-		!!permTypeError && setPermTypeError('')
-	},[permType, permTypeError])
+		setPermTypeError('')
+	},[permType])
 	useEffect(()=>{
-		!!commandTypeError && setCommandTypeError('')
-	},[commandType, commandTypeError])
+		setCommandTypeError('')
+	},[commandType])
 
 	useEffect(()=>{
-		if(props.open === -1){
-			setStep(0)
-		}
-		if(props.selected === null){
+		if(props.selected[0] === null){
 			setName('')
 			setCommandType('')
 			setDesc('')
-			//setPermType('')
+			setPermType('')
 			return
 		}
-		setName(props.selected.name)
-		setCommandType(props.selected.type)
-		setDesc(props.selected.description)
-		//setPermType(props.selected.permissionsType)
-		setCommand(props.selected)
+		setName(props.selected[1])
+		setCommandType(props.selected[0].type)
+		setDesc(props.selected[0].description)
+		setPermType(props.selected[0].permType)
+		setCommand(props.selected[0])
 	},[props])
 
-	const onNext = () => {
+	const handleSave = () => {
 		let errors = 0
 		if(!/^[\w\d]{1,32}$/.test(name)){
 			setNameError('Name must be alphanumeric!')
@@ -80,64 +79,31 @@ const CommandDialogController = (props: {open: number, selected: command | null,
 			setCommandTypeError('Required')
 			errors++
 		}
-		if(errors) return false
+		if(errors) return
 		const newCommand = {
-			...command,
-			name: name.toLowerCase().trim(),
 			description: desc.trim(),
 			type: commandType,
-			permissionsType: permType
+			permType: permType
 		}
-		if(commandType === 'adjust'){
-			setPermissionDialog(<AdjustOptions
-				command={newCommand}
-				index={props.open}
-				permType={permType}
-				handleBack={()=>setStep(0)}
-				handleClose={props.onClose}
-			/>)
+		const newCommandList = botContext.bot!
+		if(props.selected[1] !== ''){
+			delete newCommandList.config.commands[props.selected[1]]
 		}
-		if(commandType === 'ban'){
-			setPermissionDialog(<BanOptions
-				command={newCommand}
-				index={props.open}
-				permType={permType}
-				handleBack={()=>setStep(0)}
-				handleClose={props.onClose}
-			/>)
-		}
-		if(commandType === 'set'){
-			setPermissionDialog(<SetOptions
-				command={newCommand}
-				index={props.open}
-				permType={permType}
-				handleBack={()=>setStep(0)}
-				handleClose={props.onClose}
-			/>)
-		}
-		setCommand({
-			...newCommand
-		})
-		return true
+		newCommandList.config.commands[name.toLowerCase().trim()] = newCommand
+		botContext.setBot(newCommandList)
+		props.onClose()
 	}
 
-	const handleNext = ()=>{
-		if(!onNext()) return
-		setStep(1)
-		return
-	}
 	return (
 		<>
-		{props.open === -1 ? (
+		{!props.open ? (
 			<Dialog open={false}/>
 			) : (
 			<Dialog
 				open={true}
 				onClose={() => props.onClose()}
 				>
-				<DialogTitle>{props.selected === null ? "Add" : "Edit"} Command</DialogTitle>
-				{!step ? (
-					<>
+				<DialogTitle>{props.selected[0] === null ? "Add" : "Edit"} Command</DialogTitle>
 				<DialogContent>
 				<Grid container spacing={2} sx={{padding: '5px'}}>
 					<Grid item xs={4}>
@@ -160,7 +126,6 @@ const CommandDialogController = (props: {open: number, selected: command | null,
 								<MenuItem value="adjust">Adjust</MenuItem>
 								<MenuItem value="ban">Ban</MenuItem>
 								<MenuItem value="set">Set</MenuItem>
-								<MenuItem value="info">Info</MenuItem>
 							</Select>
 						</FormControl>
 					</Grid>
@@ -172,7 +137,6 @@ const CommandDialogController = (props: {open: number, selected: command | null,
 								error={!!permTypeError}
 								label="Permission Type"
 								value={permType}
-								disabled
 								onChange={(e) => setPermType(e.target.value)}>
 								<MenuItem value="all">All</MenuItem>
 								<MenuItem value="rank">Rank</MenuItem>
@@ -193,19 +157,13 @@ const CommandDialogController = (props: {open: number, selected: command | null,
 				</Grid>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleNext}>
-						Next
+					<Button onClick={handleSave}>
+						Save
 					</Button>
 					<Button onClick={() => props.onClose()}>
 						Cancel
 					</Button>
 				</DialogActions>
-				</>
-					):(
-				<DialogContent>
-						{permissionDialog}
-				</DialogContent>
-					)}
 			</Dialog>
 			)}
 		</>

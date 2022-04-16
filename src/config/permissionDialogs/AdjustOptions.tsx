@@ -18,46 +18,46 @@ const AdjustOptions = (props: {command: command, index: number, permType: string
 	const [maxCallsError, setMaxCallsError] = useState<string>('')
 	const botContext = useContext(ConfigContext)
 
-	const handleSave = () => {
-		const _amount = parseInt(amount)
-		const _cooldown = parseInt(cooldown)
-		const _maxCalls = parseInt(maxCalls)
-		let errors = 0
-		if(isNaN(_amount)){
-			setAmountError("Must set amount!")
-			errors += 1
-		} else setAmountError('')
-		if(isNaN(_cooldown) || _cooldown < -1){
-			setCooldownError("Must set cooldown!")
-			errors += 1
-		} else setCooldownError('')
-		if(isNaN(_maxCalls) || _maxCalls <= 0){
-			setMaxCallsError("Must max calls must be greater than 0!")
-			errors += 1
-		} else setMaxCallsError('')
-		if(errors) return
-		if(botContext.bot === undefined) return
-		const command = {
-			...props.command,
-			otherOptions: {
-				amount: _amount,
-				cooldown: _cooldown,
-				maxCalls: _maxCalls
-			}
-		}
-		let newCommandList = botContext.bot.config.commands
-		if(props.index === -2){
-			newCommandList.push(command)
-		} else newCommandList[props.index] = command
-		botContext.setBot({
-			...botContext.bot,
-			config: {
-				...botContext.bot.config,
-				commands: newCommandList
-			}
-		})
-		props.handleClose()
-	}
+	// const handleSave = () => {
+	// 	const _amount = parseInt(amount)
+	// 	const _cooldown = parseInt(cooldown)
+	// 	const _maxCalls = parseInt(maxCalls)
+	// 	let errors = 0
+	// 	if(isNaN(_amount)){
+	// 		setAmountError("Must set amount!")
+	// 		errors += 1
+	// 	} else setAmountError('')
+	// 	if(isNaN(_cooldown) || _cooldown < -1){
+	// 		setCooldownError("Must set cooldown!")
+	// 		errors += 1
+	// 	} else setCooldownError('')
+	// 	if(isNaN(_maxCalls) || _maxCalls <= 0){
+	// 		setMaxCallsError("Must max calls must be greater than 0!")
+	// 		errors += 1
+	// 	} else setMaxCallsError('')
+	// 	if(errors) return
+	// 	if(botContext.bot === undefined) return
+	// 	const command = {
+	// 		...props.command,
+	// 		otherOptions: {
+	// 			amount: _amount,
+	// 			cooldown: _cooldown,
+	// 			maxCalls: _maxCalls
+	// 		}
+	// 	}
+	// 	let newCommandList = botContext.bot.config.commands
+	// 	if(props.index === -2){
+	// 		newCommandList.push(command)
+	// 	} else newCommandList[props.index] = command
+	// 	botContext.setBot({
+	// 		...botContext.bot,
+	// 		config: {
+	// 			...botContext.bot.config,
+	// 			commands: newCommandList
+	// 		}
+	// 	})
+	// 	props.handleClose()
+	// }
 	useEffect(()=>{
 		!!amountError && setAmountError('')
 	},[amount, amountError])
@@ -67,18 +67,18 @@ const AdjustOptions = (props: {command: command, index: number, permType: string
 	useEffect(()=>{
 		!!maxCallsError && setMaxCallsError('')
 	},[maxCalls, maxCallsError])
-	useEffect(()=>{
-		if(props.command.otherOptions === undefined){
-			setAmount('')
-			setCooldown('')
-			setMaxCalls('')
-			return
-		}
-		const opts = props.command.otherOptions
-		setAmount(opts.amount ? opts.amount.toString() : '')
-		setCooldown(opts.cooldown ? opts.cooldown.toString() : '')
-		setMaxCalls(opts.maxCalls ? opts.maxCalls.toString() : '')
-	},[props.command])
+	// useEffect(()=>{
+	// 	if(props.command.otherOptions === undefined){
+	// 		setAmount('')
+	// 		setCooldown('')
+	// 		setMaxCalls('')
+	// 		return
+	// 	}
+	// 	const opts = props.command.otherOptions
+	// 	setAmount(opts.amount ? opts.amount.toString() : '')
+	// 	setCooldown(opts.cooldown ? opts.cooldown.toString() : '')
+	// 	setMaxCalls(opts.maxCalls ? opts.maxCalls.toString() : '')
+	// },[props.command])
 	return (
 		<>
 		<Grid sx={{padding: '10px'}} container spacing={2}>
@@ -121,7 +121,7 @@ const AdjustOptions = (props: {command: command, index: number, permType: string
 			<Button sx={{marginRight: 'auto'}} onClick={props.handleBack}>
 				Back
 			</Button>
-			<Button onClick={handleSave}>
+			<Button>
 				Save
 			</Button>
 			<Button onClick={props.handleClose}>

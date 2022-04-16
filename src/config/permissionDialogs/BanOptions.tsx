@@ -29,22 +29,6 @@ const BanOptions = (props: {command: command, index: number, permType: string, h
 		} else setCooldownError('')
 		if(errors) return
 		if(botContext.bot === undefined) return
-		const command = {
-			...props.command,
-			otherOptions: {
-				amount: _amount,
-				cooldown: _cooldown,
-			}
-		}
-		let newCommandList = botContext.bot.config.commands
-		newCommandList[props.index] = command
-		botContext.setBot({
-			...botContext.bot,
-			config: {
-				...botContext.bot.config,
-				commands: newCommandList
-			}
-		})
 		props.handleClose()
 
 	}
@@ -54,16 +38,16 @@ const BanOptions = (props: {command: command, index: number, permType: string, h
 	useEffect(()=>{
 		!!cooldownError && setCooldownError('')
 	},[cooldown, cooldownError])
-	useEffect(()=>{
-		if(props.command.otherOptions === undefined){
-			setAmount('')
-			setCooldown('')
-			return
-		}
-		const opts = props.command.otherOptions
-		setAmount(opts.amount ? opts.amount.toString() : '')
-		setCooldown(opts.cooldown ? opts.cooldown.toString() : '')
-	},[props.command])
+	// useEffect(()=>{
+	// 	if(props.command.otherOptions === undefined){
+	// 		setAmount('')
+	// 		setCooldown('')
+	// 		return
+	// 	}
+	// 	const opts = props.command.otherOptions
+	// 	setAmount(opts.amount ? opts.amount.toString() : '')
+	// 	setCooldown(opts.cooldown ? opts.cooldown.toString() : '')
+	// },[props.command])
 	return (
 		<>
 		<Grid sx={{padding: '10px'}} container spacing={2}>

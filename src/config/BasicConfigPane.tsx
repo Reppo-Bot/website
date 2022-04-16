@@ -7,21 +7,17 @@ import {
 import ConfigContext from "./ConfigContext"
 import React, {useContext, useState} from "react"
 import {Delete, Add, Edit} from "@mui/icons-material"
-import CommandDialogController from "./CommandDialogController"
 import RoleDialog from "./RoleDialog"
 import RankDialog from "./RankDialog"
-import {command} from "./../types"
+import {rank, role} from "./../types"
 
-type configType = 'Ranks' | 'Roles' | 'Commands'
-const ConfigPane = (props: {type: configType}) => {
+type configType = 'Ranks' | 'Roles'
+const BasicConfigPane = (props: {type: configType}) => {
 	const botContext = useContext(ConfigContext)
 	const [selected, setSelected] = useState<any>(null)
 	const [open, setOpen] = useState<number>(-1)
 	const ThisTypeDialog = () =>{
 		const _type = props.type.toLowerCase()
-		if(_type === 'commands'){
-			return <CommandDialogController open={open} selected={selected} onClose={closeDialog}/>
-		}
 		if(_type === 'ranks'){
 			return <RankDialog open={open} selected={selected} onClose={closeDialog}/>
 		}
@@ -33,46 +29,22 @@ const ConfigPane = (props: {type: configType}) => {
 		setSelected(null)
 		setOpen(-1)
 	}
-	const openDialog = (command: command | null, index: number) => {
-		setSelected(command)
+	const openDialog = (configItem: rank | role | null, index: number) => {
+		setSelected(configItem)
 		setOpen(index)
 	}
 	const handleDelete = (index: number) =>{
 		if(botContext.bot === undefined) return
-		if(props.type.toLowerCase() === 'commands'){
-			let newCommandList = botContext.bot.config.commands
-			delete newCommandList[index]
-			botContext.setBot({
-				...botContext.bot,
-				config: {
-					...botContext.bot.config,
-					commands: newCommandList
-				}
-			})
-			return
-		}
 		if(props.type.toLowerCase() === 'roles'){
-			let newrolesList = botContext.bot.config.roles
-			delete newrolesList[index]
-			botContext.setBot({
-				...botContext.bot,
-				config: {
-					...botContext.bot.config,
-					roles: newrolesList
-				}
-			})
+			let newRolesList = botContext.bot!
+			delete newRolesList.config.roles[index]
+			botContext.setBot({...newRolesList})
 			return
 		}
 		if(props.type.toLowerCase() === 'ranks'){
-			let newRanksList = botContext.bot.config.ranks
-			delete newRanksList[index]
-			botContext.setBot({
-				...botContext.bot,
-				config: {
-					...botContext.bot.config,
-					ranks: newRanksList
-				}
-			})
+			let newRanksList = botContext.bot!
+			delete newRanksList.config.ranks[index]
+			botContext.setBot({...newRanksList})
 			return
 		}
 	}
@@ -88,7 +60,7 @@ const ConfigPane = (props: {type: configType}) => {
 						{props.type}
 					</Typography>
 				</Grid>
-				{botContext.bot.config[props.type.toLowerCase()].map((conf: command, index: number)=>
+				{botContext.bot.config[props.type.toLowerCase()].map((conf: role | rank, index: number)=>
 					<React.Fragment key={conf.name}>
 						<Grid item xs={6}>
 							<Typography variant="h6">
@@ -118,4 +90,4 @@ const ConfigPane = (props: {type: configType}) => {
 	)
 }
 
-export default ConfigPane
+export default BasicConfigPane

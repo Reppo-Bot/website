@@ -9,7 +9,9 @@ import {
 } from "@mui/material"
 import {styled} from "@mui/system"
 import {useContext, useEffect} from "react"
-import ConfigPane from './ConfigPane'
+import BasicConfigPane from './BasicConfigPane'
+import CommandsConfigPane from './CommandsConfigPane'
+import PermissionConfigPane from './PermissionConfigPane'
 
 const PrettyPaper = styled(Paper)({
 	padding: '10px',
@@ -36,17 +38,22 @@ const EditConfig = () => {
 				<Grid container justifyContent="space-around" spacing={4} sx={{padding: '20px'}}>
 					<Grid item xs={3}>
 						<PrettyPaper elevation={12}>
-							<ConfigPane type="Ranks"/>
+							<BasicConfigPane type="Ranks"/>
 						</PrettyPaper>
 					</Grid>
 					<Grid item xs={3}>
 						<PrettyPaper elevation={12}>
-							<ConfigPane type="Roles"/>
+							<BasicConfigPane type="Roles"/>
 						</PrettyPaper>
 					</Grid>
 					<Grid item xs={3}>
 						<PrettyPaper elevation={12}>
-							<ConfigPane type="Commands"/>
+							<CommandsConfigPane/>
+						</PrettyPaper>
+					</Grid>
+					<Grid item xs={3}>
+						<PrettyPaper elevation={12}>
+							<PermissionConfigPane/>
 						</PrettyPaper>
 					</Grid>
 				</Grid>
