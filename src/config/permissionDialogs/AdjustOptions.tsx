@@ -1,134 +1,158 @@
 import {
-	TextField,
-	Grid,
-	DialogActions,
-	Button,
+    TextField,
+    Grid,
+    DialogActions,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    Typography,
+    Select,
+    MenuItem,
+    FormControl,
+    InputLabel,
+    SelectChangeEvent
 } from "@mui/material"
-import {command} from "./../../types"
+import {command, rank, role} from "./../../types"
 import {useState, useEffect, useContext} from "react"
 import {Add} from '@mui/icons-material'
 import ConfigContext from "./../ConfigContext"
+import AllowedForm from "./AllowedForm"
 
-const AdjustOptions = (props: {command: command, index: number, permType: string, handleBack:()=>void, handleClose:()=>void}) => {
-	const [amount, setAmount] = useState<string>('')
-	const [amountError, setAmountError] = useState<string>('')
-	const [cooldown, setCooldown] = useState<string>('')
-	const [cooldownError, setCooldownError] = useState<string>('')
-	const [maxCalls, setMaxCalls] = useState<string>('')
-	const [maxCallsError, setMaxCallsError] = useState<string>('')
-	const botContext = useContext(ConfigContext)
-
-	// const handleSave = () => {
-	// 	const _amount = parseInt(amount)
-	// 	const _cooldown = parseInt(cooldown)
-	// 	const _maxCalls = parseInt(maxCalls)
-	// 	let errors = 0
-	// 	if(isNaN(_amount)){
-	// 		setAmountError("Must set amount!")
-	// 		errors += 1
-	// 	} else setAmountError('')
-	// 	if(isNaN(_cooldown) || _cooldown < -1){
-	// 		setCooldownError("Must set cooldown!")
-	// 		errors += 1
-	// 	} else setCooldownError('')
-	// 	if(isNaN(_maxCalls) || _maxCalls <= 0){
-	// 		setMaxCallsError("Must max calls must be greater than 0!")
-	// 		errors += 1
-	// 	} else setMaxCallsError('')
-	// 	if(errors) return
-	// 	if(botContext.bot === undefined) return
-	// 	const command = {
-	// 		...props.command,
-	// 		otherOptions: {
-	// 			amount: _amount,
-	// 			cooldown: _cooldown,
-	// 			maxCalls: _maxCalls
-	// 		}
-	// 	}
-	// 	let newCommandList = botContext.bot.config.commands
-	// 	if(props.index === -2){
-	// 		newCommandList.push(command)
-	// 	} else newCommandList[props.index] = command
-	// 	botContext.setBot({
-	// 		...botContext.bot,
-	// 		config: {
-	// 			...botContext.bot.config,
-	// 			commands: newCommandList
-	// 		}
-	// 	})
-	// 	props.handleClose()
-	// }
-	useEffect(()=>{
-		!!amountError && setAmountError('')
-	},[amount, amountError])
-	useEffect(()=>{
-		!!cooldownError && setCooldownError('')
-	},[cooldown, cooldownError])
-	useEffect(()=>{
-		!!maxCallsError && setMaxCallsError('')
-	},[maxCalls, maxCallsError])
-	// useEffect(()=>{
-	// 	if(props.command.otherOptions === undefined){
-	// 		setAmount('')
-	// 		setCooldown('')
-	// 		setMaxCalls('')
-	// 		return
-	// 	}
-	// 	const opts = props.command.otherOptions
-	// 	setAmount(opts.amount ? opts.amount.toString() : '')
-	// 	setCooldown(opts.cooldown ? opts.cooldown.toString() : '')
-	// 	setMaxCalls(opts.maxCalls ? opts.maxCalls.toString() : '')
-	// },[props.command])
-	return (
-		<>
-		<Grid sx={{padding: '10px'}} container spacing={2}>
-			<Grid item xs={4}>
-				<TextField
-					onChange={(e)=> setAmount(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
-					label="Adjust Amount"
-					helperText={amountError}
-					error={!!amountError.length}
-					value={amount}
-					/>
-			</Grid>
-			<Grid item xs={4}>
-				<TextField
-					onChange={(e)=>setCooldown(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
-					label="Cooldown"
-					helperText={cooldownError}
-					error={!!cooldownError.length}
-					value={cooldown}
-					/>
-			</Grid>
-			<Grid item xs={4}>
-				<TextField
-					onChange={(e)=>setMaxCalls(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
-					label="Max Calls"
-					helperText={maxCallsError}
-					error={!!maxCallsError.length}
-					value={maxCalls}
-					/>
-			</Grid>
-			<Grid container justifyContent="center">
-				{props.permType !== 'all' ? (
-				<Button fullWidth variant="contained" >
-					<Add/>
-				</Button>
-					) : null}
-			</Grid>
-		</Grid>
-		<DialogActions>
-			<Button sx={{marginRight: 'auto'}} onClick={props.handleBack}>
-				Back
-			</Button>
-			<Button>
-				Save
-			</Button>
-			<Button onClick={props.handleClose}>
-				Cancel
-			</Button>
-		</DialogActions>
-		</>
-	)
+const AdjustOptions = (props: {open: boolean, index: number, permType: string, onClose:()=>void}) => {
+    const [amount, setAmount] = useState<string>('')
+    const [amountError, setAmountError] = useState<string>('')
+    const [cooldown, setCooldown] = useState<string>('')
+    const [cooldownError, setCooldownError] = useState<string>('')
+    const [maxCalls, setMaxCalls] = useState<string>('')
+    const [maxCallsError, setMaxCallsError] = useState<string>('')
+    const [allowed, setAllowed] = useState<string>('')
+    const [allowedOn, setAllowedOn] = useState<string[]>([])
+    const [allowedError, setAllowedError] = useState<string>('')
+    const botContext = useContext(ConfigContext)
+    const handleAllowedOnChange = (event: SelectChangeEvent<string>) => {
+        const {target: { value },} = event;
+        setAllowedOn(typeof value === 'string' ? value.split(',') : value);
+    };
+    const handleSave = () => {
+        const _amount = parseInt(amount)
+        const _cooldown = parseInt(cooldown)
+        const _maxCalls = parseInt(maxCalls)
+        let errors = 0
+        if(isNaN(_amount)){
+            setAmountError("Must set amount!")
+            errors ++
+        } else setAmountError('')
+        if(isNaN(_cooldown) || _cooldown < -1){
+            setCooldownError("Must set cooldown!")
+            errors ++
+        } else setCooldownError('')
+        if(isNaN(_maxCalls) || _maxCalls <= 0){
+            setMaxCallsError("Must max calls must be greater than 0!")
+            errors ++
+        } else setMaxCallsError('')
+        if(props.permType !== 'all' && allowed === ''){
+            setAllowedError(`Must select allowed ${props.permType}`)
+            errors++
+        }
+        if(errors) return
+        if(botContext.bot === undefined) return
+        const opts = {
+            amount: _amount,
+            cooldown: _cooldown,
+            maxCalls: _maxCalls
+        }
+        let newPermissionsList = botContext.bot!
+        if(props.permType !== 'all'){
+            newPermissionsList.config.permissions[props.index].allowed = allowed
+            newPermissionsList.config.permissions[props.index].on = allowedOn
+        } else {
+            newPermissionsList.config.permissions[props.index].allowed = 'all'
+            newPermissionsList.config.permissions[props.index].on = []
+        }
+        newPermissionsList.config.permissions[props.index].opts = opts
+        botContext.setBot({...newPermissionsList})
+        props.onClose()
+    }
+    useEffect(()=>{
+        setAmountError('')
+    },[amount])
+    useEffect(()=>{
+        setCooldownError('')
+    },[cooldown])
+    useEffect(()=>{
+        setMaxCallsError('')
+    },[maxCalls])
+    useEffect(()=>{
+        setAllowedError('')
+    },[allowed])
+    useEffect(()=>{
+        const perm = botContext.bot!.config.permissions[props.index]
+        setAllowed(perm.allowed)
+        setAllowedOn(perm.on)
+        setAmount(perm.opts.amount ? perm.opts.amount.toString() : '')
+        setCooldown(perm.opts.cooldown ? perm.opts.cooldown.toString() : '')
+        setMaxCalls(perm.opts.maxCalls ? perm.opts.maxCalls.toString() : '')
+    },[props])
+    return (
+        <Dialog
+            open={props.open}
+            onClose={props.onClose}
+        >
+        <DialogTitle>{botContext.bot!.config.permissions[props.index].command[0].toUpperCase() + botContext.bot!.config.permissions[props.index].command.slice(1)}</DialogTitle>
+        <DialogContent>
+        <Grid sx={{padding: '10px'}} container spacing={2}>
+            <AllowedForm
+                permType={props.permType}
+                allowed={allowed}
+                allowedError={allowedError}
+                allowedOn={allowedOn}
+                handleAllowedOnChange={handleAllowedOnChange}
+                setAllowed={setAllowed}
+                />
+            <Grid item xs={12}>
+                 <Typography>
+                    Options
+                </Typography>
+            </Grid>
+            <Grid item xs={4}>
+                <TextField
+                    onChange={(e)=> setAmount(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
+                    label="Adjust Amount"
+                    helperText={amountError}
+                    error={!!amountError.length}
+                    value={amount}
+                    />
+            </Grid>
+            <Grid item xs={4}>
+                <TextField
+                    onChange={(e)=>setCooldown(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
+                    label="Cooldown"
+                    helperText={cooldownError}
+                    error={!!cooldownError.length}
+                    value={cooldown}
+                    />
+            </Grid>
+            <Grid item xs={4}>
+                <TextField
+                    onChange={(e)=>setMaxCalls(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
+                    label="Max Calls"
+                    helperText={maxCallsError}
+                    error={!!maxCallsError.length}
+                    value={maxCalls}
+                    />
+            </Grid>
+        </Grid>
+        </DialogContent>
+        <DialogActions>
+            <Button onClick={handleSave}>
+                Save
+            </Button>
+            <Button onClick={props.onClose}>
+                Cancel
+            </Button>
+        </DialogActions>
+        </Dialog>
+    )
 }
 export default AdjustOptions

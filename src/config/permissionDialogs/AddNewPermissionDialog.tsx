@@ -26,7 +26,7 @@ const AddNewPermissionDialog = (props: {anchor: any, open: boolean, onClose: (va
             onClose={props.onClose}
         >
                 {Object.keys(botContext.bot!.config.commands).map((key: string)=>
-                    <MenuItem sx={{paddingLeft: '20px',paddingRight: '20px'}} onClick={() => handleAddCommand(key)}>
+                    <MenuItem key={key} sx={{paddingLeft: '20px',paddingRight: '20px'}} onClick={() => handleAddCommand(key)}>
                         {key[0].toUpperCase() + key.slice(1)}
                     </MenuItem>
                 )}
