@@ -9,7 +9,7 @@ import React, {useContext, useState} from "react"
 import {Delete, Add, Edit} from "@mui/icons-material"
 import CommandDialogController from "./CommandDialogController"
 import RoleDialog from "./RoleDialog"
-import RankDialog from "./CommandDialogController"
+import RankDialog from "./RankDialog"
 import {command, role, rank} from "./../types"
 
 type configType = 'Ranks' | 'Roles' | 'Commands'
@@ -41,7 +41,7 @@ const ConfigPane = (props: {type: configType}) => {
 		if(botContext.bot === undefined) return
 		if(props.type.toLowerCase() === 'commands'){
 			let newCommandList = botContext.bot.config.commands
-			newCommandList.splice(index)
+			delete newCommandList[index]
 			botContext.setBot({
 				...botContext.bot,
 				config: {
@@ -53,7 +53,7 @@ const ConfigPane = (props: {type: configType}) => {
 		}
 		if(props.type.toLowerCase() === 'roles'){
 			let newrolesList = botContext.bot.config.roles
-			newrolesList.splice(index)
+			delete newrolesList[index]
 			botContext.setBot({
 				...botContext.bot,
 				config: {
@@ -65,7 +65,7 @@ const ConfigPane = (props: {type: configType}) => {
 		}
 		if(props.type.toLowerCase() === 'ranks'){
 			let newRanksList = botContext.bot.config.ranks
-			newRanksList.splice(index)
+			delete newRanksList[index]
 			botContext.setBot({
 				...botContext.bot,
 				config: {
