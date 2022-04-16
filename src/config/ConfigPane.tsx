@@ -24,6 +24,18 @@ const ConfigPane = (props: {type: configType}) => {
 		setSelected(command)
 		setOpen(index)
 	}
+	const handleDelete = (index: number) =>{
+		if(botContext.bot === undefined) return
+		let newCommandList = botContext.bot.config.commands
+		newCommandList.splice(index)
+		botContext.setBot({
+			...botContext.bot,
+			config: {
+				...botContext.bot.config,
+				commands: newCommandList
+			}
+		})
+	}
 	if(botContext.bot === undefined){
 		return null
 	}
@@ -49,7 +61,7 @@ const ConfigPane = (props: {type: configType}) => {
 								<Button onClick={() => openDialog(conf, index)}>
 									<Edit/>
 								</Button>
-								<IconButton>
+								<IconButton onClick={() => handleDelete(index)}>
 									<Delete/>
 								</IconButton>
 							</Grid>
