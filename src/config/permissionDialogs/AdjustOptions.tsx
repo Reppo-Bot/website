@@ -50,7 +50,9 @@ const AdjustOptions = (props: {command: command, index: number, permType: string
 			}
 		}
 		let newCommandList = botContext.bot.config.commands
-		newCommandList[props.index] = command
+		if(props.index === -2){
+			newCommandList.push(command)
+		} else newCommandList[props.index] = command
 		botContext.setBot({
 			...botContext.bot,
 			config: {
@@ -59,7 +61,6 @@ const AdjustOptions = (props: {command: command, index: number, permType: string
 			}
 		})
 		props.handleClose()
-
 	}
 	useEffect(()=>{
 		!!amountError && setAmountError('')

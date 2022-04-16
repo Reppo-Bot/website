@@ -8,14 +8,27 @@ import ConfigContext from "./ConfigContext"
 import React, {useContext, useState} from "react"
 import {Delete, Add, Edit} from "@mui/icons-material"
 import CommandDialogController from "./CommandDialogController"
-import {command} from "./../types"
+import RoleDialog from "./RoleDialog"
+import RankDialog from "./CommandDialogController"
+import {command, role, rank} from "./../types"
 
-type rank = {name: string, minRep: number}
 type configType = 'Ranks' | 'Roles' | 'Commands'
 const ConfigPane = (props: {type: configType}) => {
 	const botContext = useContext(ConfigContext)
-	const [selected, setSelected] = useState<command|null>(null)
+	const [selected, setSelected] = useState<any>(null)
 	const [open, setOpen] = useState<number>(-1)
+	const ThisTypeDialog = () =>{
+		const _type = props.type.toLowerCase()
+		if(_type === 'commands'){
+			return <CommandDialogController open={open} selected={selected} onClose={closeDialog}/>
+		}
+		if(_type === 'ranks'){
+			return <RankDialog open={open} selected={selected} onClose={closeDialog}/>
+		}
+		if(_type === 'roles'){
+			return <RoleDialog open={open} selected={selected} onClose={closeDialog}/>
+		}
+	}
 	const closeDialog = () => {
 		setSelected(null)
 		setOpen(-1)
@@ -95,12 +108,12 @@ const ConfigPane = (props: {type: configType}) => {
 					</React.Fragment>
 				)}
 				<Grid container justifyContent="center" >
-					<IconButton onClick={()=>openDialog(null,0)}>
+					<IconButton onClick={()=>openDialog(null,-2)}>
 						<Add/>
 					</IconButton>
 				</Grid>
 			</Grid>
-		<CommandDialogController open={open} selected={selected} onClose={closeDialog}/>
+			{ThisTypeDialog()}
 		</>
 	)
 }

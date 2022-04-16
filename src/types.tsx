@@ -13,3 +13,12 @@ export type command = {
 	otherOptions?: otherOptions
 	permissions?: Array<{options: otherOptions, allowed: string, allowedOn: Array<string>}>,
 }
+export type role = {
+	name: string,
+	roleid: string,
+	priority: string
+}
+export type rank = {
+	name: string,
+	minRep: number
+}
