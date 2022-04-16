@@ -10,7 +10,7 @@ import {Delete, Add, Edit} from "@mui/icons-material"
 import CommandDialogController from "./CommandDialogController"
 import RoleDialog from "./RoleDialog"
 import RankDialog from "./RankDialog"
-import {command, role, rank} from "./../types"
+import {command} from "./../types"
 
 type configType = 'Ranks' | 'Roles' | 'Commands'
 const ConfigPane = (props: {type: configType}) => {

@@ -6,11 +6,7 @@ import {
     Button,
     DialogActions,
     TextField,
-    Select,
-    MenuItem,
     Grid,
-    FormControl,
-    InputLabel
 } from "@mui/material"
 import {useState, useEffect, useContext} from 'react'
 import ConfigContext from "./ConfigContext"
@@ -52,10 +48,10 @@ const RankDialog = (props: {open: number, selected: rank | null, onClose: () => 
     }
     useEffect(()=>{
         !!nameError && setNameError('')
-    },[name])
+    },[name, nameError])
     useEffect(()=>{
         !!minRepError && setMinRepError('')
-    },[minRep])
+    },[minRep, minRepError])
     useEffect(()=>{
         if(props.selected === null){
             setName('')

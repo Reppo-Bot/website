@@ -6,11 +6,7 @@ import {
     Button,
     DialogActions,
     TextField,
-    Select,
-    MenuItem,
     Grid,
-    FormControl,
-    InputLabel
 } from "@mui/material"
 import {useState, useEffect, useContext} from 'react'
 import ConfigContext from "./ConfigContext"
@@ -59,13 +55,13 @@ const RoleDialog = (props: {open: number, selected: role | null, onClose: () => 
     }
     useEffect(()=>{
         !!nameError && setNameError('')
-    },[name])
+    },[name, nameError])
     useEffect(()=>{
         !!priorityError && setPriorityError('')
-    },[priority])
+    },[priority, priorityError])
     useEffect(()=>{
         !!roleidError && setroleidError('')
-    },[roleid])
+    },[roleid, roleidError])
     useEffect(()=>{
         if(props.selected === null){
             setName('')

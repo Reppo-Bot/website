@@ -1,12 +1,8 @@
 import {
 	TextField,
 	Grid,
-	Dialog,
-	DialogTitle,
 	DialogActions,
-	DialogContent,
 	Button,
-	IconButton
 } from "@mui/material"
 import {command} from "./../../types"
 import {useState, useEffect, useContext} from "react"
@@ -71,16 +67,16 @@ const SetOptions = (props: {command: command, index: number, permType: string, h
 	}
 	useEffect(()=>{
 		!!maxAmountError && setMaxAmountError('')
-	},[maxAmount])
+	},[maxAmount, maxAmountError])
 	useEffect(()=>{
 		!!minAmountError && setMinAmountError('')
-	},[minAmount])
+	},[minAmount, minAmountError])
 	useEffect(()=>{
 		!!cooldownError && setCooldownError('')
-	},[cooldown])
+	},[cooldown, cooldownError])
 	useEffect(()=>{
 		!!maxCallsError && setMaxCallsError('')
-	},[maxCalls])
+	},[maxCalls, maxCallsError])
 	useEffect(()=>{
 		if(props.command.otherOptions === undefined) {
 			setMaxAmount('')
@@ -100,7 +96,7 @@ const SetOptions = (props: {command: command, index: number, permType: string, h
 		<Grid sx={{padding: '10px'}} container spacing={2}>
 			<Grid item xs={3}>
 				<TextField
-					onChange={(e)=> setMaxAmount(e.target.value.replace(/[^\-0-9]|(\d\-)/g, ''))}
+					onChange={(e)=> setMaxAmount(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
 					label="Max Amount"
 					helperText={maxAmountError}
 					error={!!maxAmountError.length}
@@ -109,7 +105,7 @@ const SetOptions = (props: {command: command, index: number, permType: string, h
 			</Grid>
 			<Grid item xs={3}>
 				<TextField
-					onChange={(e)=> setMinAmount(e.target.value.replace(/[^\-0-9]|(\d\-)/g, ''))}
+					onChange={(e)=> setMinAmount(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
 					label="Min Amount"
 					helperText={minAmountError}
 					error={!!minAmountError.length}
@@ -118,7 +114,7 @@ const SetOptions = (props: {command: command, index: number, permType: string, h
 			</Grid>
 			<Grid item xs={3}>
 				<TextField
-					onChange={(e)=>setCooldown(e.target.value.replace(/[^\-0-9]|(\d\-)/g, ''))}
+					onChange={(e)=>setCooldown(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
 					label="Cooldown"
 					helperText={cooldownError}
 					error={!!cooldownError.length}
@@ -127,7 +123,7 @@ const SetOptions = (props: {command: command, index: number, permType: string, h
 			</Grid>
 			<Grid item xs={3}>
 				<TextField
-					onChange={(e)=>setMaxCalls(e.target.value.replace(/[^\-0-9]|(\d\-)/g, ''))}
+					onChange={(e)=>setMaxCalls(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
 					label="Max Calls"
 					helperText={maxCallsError}
 					error={!!maxCallsError.length}

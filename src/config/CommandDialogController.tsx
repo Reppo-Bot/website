@@ -11,7 +11,7 @@ import {
 	FormControl,
 	InputLabel
 } from "@mui/material"
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect} from 'react'
 import {command} from "./../types"
 import AdjustOptions from "./permissionDialogs/AdjustOptions"
 import BanOptions from "./permissionDialogs/BanOptions"
@@ -33,16 +33,16 @@ const CommandDialogController = (props: {open: number, selected: command | null,
 
 	useEffect(()=>{
 		!!nameError && setNameError('')
-	},[name])
+	},[name, nameError])
 	useEffect(()=>{
 		!!descError && setDescError('')
-	},[desc])
+	},[desc, descError])
 	useEffect(()=>{
 		!!permTypeError && setPermTypeError('')
-	},[permType])
+	},[permType, permTypeError])
 	useEffect(()=>{
 		!!commandTypeError && setCommandTypeError('')
-	},[commandType])
+	},[commandType, commandTypeError])
 
 	useEffect(()=>{
 		if(props.open === -1){

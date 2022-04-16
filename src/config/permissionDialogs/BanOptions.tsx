@@ -1,12 +1,8 @@
 import {
 	TextField,
 	Grid,
-	Dialog,
-	DialogTitle,
 	DialogActions,
-	DialogContent,
 	Button,
-	IconButton
 } from "@mui/material"
 import {command} from "./../../types"
 import {useState, useEffect, useContext} from "react"
@@ -54,10 +50,10 @@ const BanOptions = (props: {command: command, index: number, permType: string, h
 	}
 	useEffect(()=>{
 		!!amountError && setAmountError('')
-	},[amount])
+	},[amount, amountError])
 	useEffect(()=>{
 		!!cooldownError && setCooldownError('')
-	},[cooldown])
+	},[cooldown, cooldownError])
 	useEffect(()=>{
 		if(props.command.otherOptions === undefined){
 			setAmount('')
@@ -73,7 +69,7 @@ const BanOptions = (props: {command: command, index: number, permType: string, h
 		<Grid sx={{padding: '10px'}} container spacing={2}>
 			<Grid item xs={6}>
 				<TextField
-					onChange={(e)=> setAmount(e.target.value.replace(/[^\-0-9]|(\d\-)/g, ''))}
+					onChange={(e)=> setAmount(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
 					label="Duration"
 					helperText={amountError}
 					error={!!amountError.length}
@@ -82,7 +78,7 @@ const BanOptions = (props: {command: command, index: number, permType: string, h
 			</Grid>
 			<Grid item xs={6}>
 				<TextField
-					onChange={(e)=>setCooldown(e.target.value.replace(/[^\-0-9]|(\d\-)/g, ''))}
+					onChange={(e)=>setCooldown(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
 					label="Cooldown"
 					helperText={cooldownError}
 					error={!!cooldownError.length}
