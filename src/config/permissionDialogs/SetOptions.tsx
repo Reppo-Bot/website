@@ -82,7 +82,13 @@ const SetOptions = (props: {command: command, index: number, permType: string, h
 		!!maxCallsError && setMaxCallsError('')
 	},[maxCalls])
 	useEffect(()=>{
-		if(props.command.otherOptions === undefined) return
+		if(props.command.otherOptions === undefined) {
+			setMaxAmount('')
+			setMinAmount('')
+			setCooldown('')
+			setMaxCalls('')
+			return
+		}
 		const opts = props.command.otherOptions
 		setMaxAmount(opts.maxAmount ? opts.maxAmount.toString() : '')
 		setMinAmount(opts.minAmount ? opts.minAmount.toString() : '')
