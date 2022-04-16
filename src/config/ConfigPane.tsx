@@ -26,15 +26,42 @@ const ConfigPane = (props: {type: configType}) => {
 	}
 	const handleDelete = (index: number) =>{
 		if(botContext.bot === undefined) return
-		let newCommandList = botContext.bot.config.commands
-		newCommandList.splice(index)
-		botContext.setBot({
-			...botContext.bot,
-			config: {
-				...botContext.bot.config,
-				commands: newCommandList
-			}
-		})
+		if(props.type.toLowerCase() === 'commands'){
+			let newCommandList = botContext.bot.config.commands
+			newCommandList.splice(index)
+			botContext.setBot({
+				...botContext.bot,
+				config: {
+					...botContext.bot.config,
+					commands: newCommandList
+				}
+			})
+			return
+		}
+		if(props.type.toLowerCase() === 'roles'){
+			let newrolesList = botContext.bot.config.roles
+			newrolesList.splice(index)
+			botContext.setBot({
+				...botContext.bot,
+				config: {
+					...botContext.bot.config,
+					roles: newrolesList
+				}
+			})
+			return
+		}
+		if(props.type.toLowerCase() === 'ranks'){
+			let newRanksList = botContext.bot.config.ranks
+			newRanksList.splice(index)
+			botContext.setBot({
+				...botContext.bot,
+				config: {
+					...botContext.bot.config,
+					ranks: newRanksList
+				}
+			})
+			return
+		}
 	}
 	if(botContext.bot === undefined){
 		return null
