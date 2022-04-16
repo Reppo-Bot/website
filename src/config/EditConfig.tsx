@@ -19,9 +19,6 @@ const EditConfig = () => {
 	const botContext = useContext(ConfigContext)
 	const context = useContext(PageContext)
 	const theme = useTheme()
-	useEffect(()=>{
-		console.log(botContext.bot)
-	},[botContext.bot])
 	return (
 		<Box sx={{
 			paddingLeft: "175px",
@@ -36,7 +33,7 @@ const EditConfig = () => {
 						{botContext.bot.config.name}
 					</Typography>
 				</Grid>
-				<Grid container xs={12} justifyContent="space-around" spacing={4} sx={{padding: '20px'}}>
+				<Grid container justifyContent="space-around" spacing={4} sx={{padding: '20px'}}>
 					<Grid item xs={3}>
 						<PrettyPaper elevation={12}>
 							<ConfigPane type="Ranks"/>
