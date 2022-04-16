@@ -13,15 +13,11 @@ import {
 } from "@mui/material"
 import React, {useState, useEffect, useContext} from 'react'
 import {command, permission} from "./../types"
-import AdjustOptions from "./permissionDialogs/AdjustOptions"
-import BanOptions from "./permissionDialogs/BanOptions"
-import SetOptions from "./permissionDialogs/SetOptions"
 import ConfigContext from "./ConfigContext"
 
 
 
 const CommandDialogController = (props: {open: boolean, selected: [command | null, string], onClose: () => void}) => {
-    const [command, setCommand] = useState<command | null>(props.selected[0])
     const botContext = useContext(ConfigContext)
 
     const [name, setName] = useState<string>(props.selected[1])
@@ -58,7 +54,6 @@ const CommandDialogController = (props: {open: boolean, selected: [command | nul
         setCommandType(props.selected[0].type)
         setDesc(props.selected[0].description)
         setPermType(props.selected[0].permType)
-        setCommand(props.selected[0])
     },[props])
 
     const handleSave = () => {

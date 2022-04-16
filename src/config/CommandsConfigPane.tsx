@@ -8,11 +8,8 @@ import ConfigContext from "./ConfigContext"
 import React, {useContext, useState} from "react"
 import {Delete, Add, Edit} from "@mui/icons-material"
 import CommandDialog from "./CommandDialog"
-import RoleDialog from "./RoleDialog"
-import RankDialog from "./RankDialog"
 import {command} from "./../types"
 
-type configType = 'Ranks' | 'Roles'
 const BasicConfigPane = () => {
     const botContext = useContext(ConfigContext)
     const [selected, setSelected] = useState<[command | null, string]>([null, ''])

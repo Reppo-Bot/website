@@ -7,16 +7,12 @@ import {
 import ConfigContext from "./ConfigContext"
 import React, {useContext, useState} from "react"
 import {Delete, Add, Edit} from "@mui/icons-material"
-import CommandDialog from "./CommandDialog"
-import RoleDialog from "./RoleDialog"
-import RankDialog from "./RankDialog"
 import {permission} from "./../types"
 import AddNewPermissionDialog from "./permissionDialogs/AddNewPermissionDialog"
 import AdjustOptions from "./permissionDialogs/AdjustOptions"
 import BanOptions from "./permissionDialogs/BanOptions"
 import SetOptions from "./permissionDialogs/SetOptions"
 
-type configType = 'Ranks' | 'Roles'
 const PermissionConfigPane = () => {
     const botContext = useContext(ConfigContext)
     const [selected, setSelected] = useState<[permission | null, number]>([null, -1])

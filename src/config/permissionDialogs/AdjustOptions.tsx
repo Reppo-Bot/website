@@ -7,15 +7,9 @@ import {
     DialogTitle,
     DialogContent,
     Typography,
-    Select,
-    MenuItem,
-    FormControl,
-    InputLabel,
     SelectChangeEvent
 } from "@mui/material"
-import {command, rank, role} from "./../../types"
 import {useState, useEffect, useContext} from "react"
-import {Add} from '@mui/icons-material'
 import ConfigContext from "./../ConfigContext"
 import AllowedForm from "./AllowedForm"
 
@@ -93,7 +87,7 @@ const AdjustOptions = (props: {open: boolean, index: number, permType: string, o
         setAmount(perm.opts.amount ? perm.opts.amount.toString() : '')
         setCooldown(perm.opts.cooldown ? perm.opts.cooldown.toString() : '')
         setMaxCalls(perm.opts.maxCalls ? perm.opts.maxCalls.toString() : '')
-    },[props])
+    },[props, botContext.bot])
     return (
         <Dialog
             open={props.open}

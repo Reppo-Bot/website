@@ -9,7 +9,7 @@ import {
 } from "@mui/material"
 import ConfigContext from "./../ConfigContext"
 import {useContext} from "react"
-import {rank, role} from "./../../types"
+import {rank} from "./../../types"
 const AllowedForm = (props: {
         permType: string,
         allowed: string,

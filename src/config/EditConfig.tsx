@@ -1,5 +1,4 @@
 import ConfigContext from "./ConfigContext"
-import PageContext from "./../PageContext"
 import {
     Typography,
     Box,
@@ -8,7 +7,7 @@ import {
     Grid,
 } from "@mui/material"
 import {styled} from "@mui/system"
-import {useContext, useEffect} from "react"
+import {useContext} from "react"
 import BasicConfigPane from './BasicConfigPane'
 import CommandsConfigPane from './CommandsConfigPane'
 import PermissionConfigPane from './PermissionConfigPane'
@@ -19,7 +18,6 @@ const PrettyPaper = styled(Paper)({
 
 const EditConfig = () => {
     const botContext = useContext(ConfigContext)
-    const context = useContext(PageContext)
     const theme = useTheme()
     return (
         <Box sx={{
