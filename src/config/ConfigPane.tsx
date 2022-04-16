@@ -48,7 +48,6 @@ const ConfigPane = (props: {type: configType}) => {
 						{props.type}
 					</Typography>
 				</Grid>
-				{console.log(botContext.bot)}
 				{botContext.bot.config[props.type.toLowerCase()].map((conf: command, index: number)=>
 					<React.Fragment key={conf.name}>
 						<Grid item xs={6}>

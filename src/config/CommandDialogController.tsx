@@ -14,6 +14,8 @@ import {
 import React, {useState, useEffect, useContext} from 'react'
 import {command} from "./../types"
 import AdjustOptions from "./permissionDialogs/AdjustOptions"
+import BanOptions from "./permissionDialogs/BanOptions"
+import SetOptions from "./permissionDialogs/SetOptions"
 
 const CommandDialogController = (props: {open: number, selected: command | null, onClose: () => void}) => {
 	const [step, setStep] = useState<number>(0)
@@ -88,6 +90,24 @@ const CommandDialogController = (props: {open: number, selected: command | null,
 		}
 		if(commandType === 'adjust'){
 			setPermissionDialog(<AdjustOptions
+				command={newCommand}
+				index={props.open}
+				permType={permType}
+				handleBack={()=>setStep(0)}
+				handleClose={props.onClose}
+			/>)
+		}
+		if(commandType === 'ban'){
+			setPermissionDialog(<BanOptions
+				command={newCommand}
+				index={props.open}
+				permType={permType}
+				handleBack={()=>setStep(0)}
+				handleClose={props.onClose}
+			/>)
+		}
+		if(commandType === 'set'){
+			setPermissionDialog(<SetOptions
 				command={newCommand}
 				index={props.open}
 				permType={permType}
