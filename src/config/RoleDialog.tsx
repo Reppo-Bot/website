@@ -54,14 +54,14 @@ const RoleDialog = (props: {open: number, selected: role | null, onClose: () => 
         props.onClose()
     }
     useEffect(()=>{
-        !!nameError && setNameError('')
-    },[name, nameError])
+        setNameError('')
+    },[name])
     useEffect(()=>{
-        !!priorityError && setPriorityError('')
-    },[priority, priorityError])
+        setPriorityError('')
+    },[priority])
     useEffect(()=>{
-        !!roleidError && setroleidError('')
-    },[roleid, roleidError])
+        setroleidError('')
+    },[roleid])
     useEffect(()=>{
         if(props.selected === null){
             setName('')

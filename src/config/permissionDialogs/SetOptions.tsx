@@ -48,7 +48,7 @@ const SetOptions = (props: {open: boolean, index: number, permType: string, onCl
             setCooldownError("Must set cooldown!")
             errors += 1
         } else setCooldownError('')
-        if(isNaN(_maxCalls) || _maxCalls <= 0){
+        if(isNaN(_maxCalls) || _maxCalls < 0){
             setMaxCallsError("Must max calls must be greater than 0!")
             errors += 1
         } else setMaxCallsError('')
@@ -91,10 +91,17 @@ const SetOptions = (props: {open: boolean, index: number, permType: string, onCl
         const perm = botContext.bot!.config.permissions[props.index]
         setAllowed(perm.allowed)
         setAllowedOn(perm.on)
-        setMaxAmount(perm.opts.maxAmount ? perm.opts.maxAmount.toString() : '')
-        setMinAmount(perm.opts.minAmount ? perm.opts.minAmount.toString() : '')
-        setCooldown(perm.opts.cooldown ? perm.opts.cooldown.toString() : '')
-        setMaxCalls(perm.opts.maxCalls ? perm.opts.maxCalls.toString() : '')
+        if(!Object.keys(perm.opts).length){
+            setMaxAmount('')
+            setMinAmount('')
+            setCooldown('')
+            setMaxCalls('')
+            return
+        }
+        setMaxAmount(perm.opts.maxAmount.toString())
+        setMinAmount(perm.opts.minAmount.toString())
+        setCooldown(perm.opts.cooldown.toString())
+        setMaxCalls(perm.opts.maxCalls.toString())
     },[props, botContext.bot])
     return (
         <Dialog

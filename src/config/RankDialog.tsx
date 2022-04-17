@@ -47,11 +47,11 @@ const RankDialog = (props: {open: number, selected: rank | null, onClose: () => 
         props.onClose()
     }
     useEffect(()=>{
-        !!nameError && setNameError('')
-    },[name, nameError])
+        setNameError('')
+    },[name])
     useEffect(()=>{
-        !!minRepError && setMinRepError('')
-    },[minRep, minRepError])
+        setMinRepError('')
+    },[minRep])
     useEffect(()=>{
         if(props.selected === null){
             setName('')

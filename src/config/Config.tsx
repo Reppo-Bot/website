@@ -4,6 +4,8 @@ import Sidebar from "./Sidebar"
 import ConfigContext, {bot} from "./ConfigContext"
 import EditConfig from "./EditConfig"
 import {permission, rank, role} from "./../types"
+import SubmitPane from "./SubmitPane"
+
 const Config = () => {
     const theme = useTheme();
     const [bot, _setBot] = useState<bot | undefined>(undefined)
@@ -23,6 +25,16 @@ const Config = () => {
             if(a.name > b.name) return 1
             return 0
         })
+        bot.config.permissions = bot.config.permissions.filter((perm: permission)=>{
+            return perm !== null && typeof perm !== 'undefined'
+        })
+        bot.config.roles = bot.config.roles.filter((role: role)=>{
+            return role !== null && typeof role !== 'undefined'
+        })
+        bot.config.ranks = bot.config.ranks.filter((rank: rank)=>{
+            return rank !== null && typeof rank !== 'undefined'
+        })
+
         _setBot(bot)
     }
     useEffect(()=>{
@@ -64,6 +76,7 @@ const Config = () => {
                 <Sidebar/>
                 {prettyCorner}
                 <EditConfig/>
+                <SubmitPane/>
             </ConfigContext.Provider>
         </>
     )

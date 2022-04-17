@@ -73,8 +73,13 @@ const BanOptions = (props: {open: boolean, index: number, permType: string, onCl
         const perm = botContext.bot!.config.permissions[props.index]
         setAllowed(perm.allowed)
         setAllowedOn(perm.on)
-        setAmount(perm.opts.amount ? perm.opts.amount.toString() : '')
-        setCooldown(perm.opts.cooldown ? perm.opts.cooldown.toString() : '')
+        if(!Object.keys(perm.opts).length){
+            setAmount('')
+            setCooldown('')
+            return
+        }
+        setAmount(perm.opts.amount.toString())
+        setCooldown(perm.opts.cooldown.toString())
     },[props, botContext.bot])
     return (
         <Dialog

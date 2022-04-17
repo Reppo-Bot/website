@@ -3,7 +3,9 @@ import {
     Box,
     Typography,
     Button,
-    useTheme
+    useTheme,
+    Backdrop,
+    CircularProgress
 } from "@mui/material"
 import {getBots} from "./../utils/config"
 import PageContext from "./../PageContext"
@@ -13,12 +15,24 @@ const Sidebar = () => {
     const theme = useTheme();
     const context = useContext(PageContext)
     const botContext = useContext(ConfigContext)
-    const [bots, setBots] = useState<any>([])
+    const [bots, setBots] = useState<any>(undefined)
+    const [loading, setLoading] = useState<boolean>(true)
     useEffect(()=>{
         getBots(context.accessToken).then((bots)=>{
             setBots(bots)
+            setLoading(false)
         })
-    },[theme, context.accessToken])
+    },[context.accessToken])
+    if(loading){
+        return (
+            <Backdrop
+                sx={{ color: '#fff'}}
+                open={loading}
+                >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+        )
+    }
     return (
         <Box component="div" sx={{
                 position: "fixed",
@@ -29,15 +43,24 @@ const Sidebar = () => {
                 overflowX: 'hidden',
                 marginTop: '76px',
             }}>
+
+            {bots.length ? (
+                <>
+                <Typography variant="h6" sx={{paddingLeft: '10px'}}>
+                    Bot List
+                </Typography>
+                {bots.map((bot: any)=>
+                    <div key={bot.serverid}>
+                        <Button fullWidth onClick={() => botContext.setBot(bot)} sx={{color: theme.palette.text.primary}}>
+                            {bot.config.name}
+                        </Button>
+                    </div>
+                )}
+            </>
+            ):(
             <Typography variant="h6" sx={{paddingLeft: '10px'}}>
-                Bot List
+                No Bots!
             </Typography>
-            {bots.map((bot: any)=>
-                <div key={bot.serverid}>
-                    <Button fullWidth onClick={() => botContext.setBot(bot)} sx={{color: theme.palette.text.primary}}>
-                        {bot.config.name}
-                    </Button>
-                </div>
             )}
 
         </Box>
