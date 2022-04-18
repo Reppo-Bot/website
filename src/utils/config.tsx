@@ -95,7 +95,7 @@ export async function removeServer(token: string, serverid: string){
 
 export async function updateConfig(token: string, serverid: string, config: object){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/private/removeServer`, {
+        const res = await fetch(`http://web.${ENV_URL}/private/updateConfig`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
