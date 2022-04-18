@@ -22,7 +22,8 @@ function ProfileMenu(props: {user?: {id: string, avatar: string, name: string}})
         context.setCookie('user', {name: '', id: '', avatar: ''}, {expires: new Date()})
         context.setCookie('token', '', {expires: new Date()})
         handleClose()
-        context.setTokenInfo('', '', () => navigate('/'))
+        context.setTokenInfo('', 0)
+        navigate('/')
     }
     return (
         <>
@@ -36,26 +37,42 @@ function ProfileMenu(props: {user?: {id: string, avatar: string, name: string}})
                     <Avatar src={`https://cdn.discordapp.com/avatars/${props.user.id}/${props.user.avatar}?size=480`} alt={props.user.name}/>
                 )}
             </IconButton>
-            <Menu
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                open={open}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-            >
             {props.user === undefined ? (
+                // logged out
+                <Menu
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    open={open}
+                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                >
                 <MenuItem onClick={() => {window.location.href="https://discord.com/api/oauth2/authorize?client_id=852589582733541416&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth&response_type=token&scope=identify"}}>
                     Login
                 </MenuItem>
+                    <MenuItem>
+                        <ThemeToggle/>
+                    </MenuItem>
+                </Menu>
             ) : (
+                // Logged in
+                <Menu
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    open={open}
+                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                >
+                <MenuItem onClick={() => navigate('/config')}>
+                    Config
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>
                     Logout
                 </MenuItem>
-            )}
                 <MenuItem>
                     <ThemeToggle/>
                 </MenuItem>
             </Menu>
+            )}
         </>
     )
 }

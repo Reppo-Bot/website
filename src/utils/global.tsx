@@ -24,7 +24,7 @@ export const getDesignTokens = (mode: PaletteMode)=> ({
         ...(mode === 'light' ? {
             // Light Mode Colors
             primary: {
-                main: '#4851c3'
+                main: '#4851c3',
             },
             secondary: {
                 main: '#3a48e8'
@@ -46,7 +46,7 @@ export const getDesignTokens = (mode: PaletteMode)=> ({
         } : {
             // Dark mode colors
             primary: {
-                main :'#bcc2ff'
+                main :'#bcc2ff',
             },
             secondary: {
                 main: '#bcc2ff'
@@ -65,7 +65,7 @@ export const getDesignTokens = (mode: PaletteMode)=> ({
             success: {
                 main: '#6fdc8e'
             }
-        })
+        }),
     }
 })
 
