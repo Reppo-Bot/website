@@ -28,6 +28,14 @@ const SearchBox = () => {
     const [options, setOptions] = useState<(serverEntry|userEntry)[]>([])
     const [inputValue, setInputValue] = useState('')
     const theme  = useTheme()
+    const getUrl = (option: serverEntry)=>{
+        if(option.group === 'Server'){
+            return `https://cdn.discordapp.com/icons/${option.id}/${option.avatar}?size=480`
+        }
+        if(option.group === "User"){
+            return `https://cdn.discordapp.com/avatars/${option.id}/${option.avatar}?size=480`
+        }
+    }
     useEffect(() => {
         if(inputValue === ''){
             setOptions([])
@@ -73,7 +81,7 @@ const SearchBox = () => {
                                 {option.avatar === "" || option.avatar === null ? (
                                     <Avatar/>
                                 ) : (
-                                    <Avatar src={`https://cdn.discordapp.com/avatars/${option.id}/${option.avatar}?size=480`} alt={option.name}/>
+                                    <Avatar src={getUrl(option)} alt={option.name}/>
                                 )}
                                 <Typography variant="h6" sx={{paddingLeft: '10px', color: theme.palette.text.primary}}>
                                     {option.name}
