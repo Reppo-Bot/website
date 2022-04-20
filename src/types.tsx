@@ -1,4 +1,4 @@
-type otherOptions = {
+export type otherOptions = {
     cooldown?: number,
     maxAmount?: number,
     maxCalls?: number,

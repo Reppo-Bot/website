@@ -12,10 +12,10 @@ import {
 import {useState, useEffect, useContext} from "react"
 import ConfigContext from "./../ConfigContext"
 import AllowedForm from "./AllowedForm"
+import {otherOptions} from "./../../types"
 
 const BanOptions = (props: {open: boolean, index: number, permType: string, onClose:()=>void}) => {
     const [amount, setAmount] = useState<string>('')
-    const [amountError, setAmountError] = useState<string>('')
     const [cooldown, setCooldown] = useState<string>('')
     const [cooldownError, setCooldownError] = useState<string>('')
     const [allowed, setAllowed] = useState<string>('')
@@ -30,10 +30,6 @@ const BanOptions = (props: {open: boolean, index: number, permType: string, onCl
         const _amount = parseInt(amount)
         const _cooldown = parseInt(cooldown)
         let errors = 0
-        if(isNaN(_amount)){
-            setAmountError("Must set amount!")
-            errors += 1
-        } else setAmountError('')
         if(isNaN(_cooldown) || _cooldown < -1){
             setCooldownError("Must set cooldown!")
             errors += 1
@@ -45,8 +41,10 @@ const BanOptions = (props: {open: boolean, index: number, permType: string, onCl
         if(errors) return
         if(botContext.bot === undefined) return
         const opts = {
-            amount: _amount,
-            cooldown: _cooldown,
+            cooldown: _cooldown
+        } as otherOptions
+        if(!isNaN(_amount)){
+            opts.amount = _amount
         }
         let newPermissionsList = botContext.bot!
         if(props.permType !== 'all'){
@@ -61,9 +59,6 @@ const BanOptions = (props: {open: boolean, index: number, permType: string, onCl
         props.onClose()
     }
     useEffect(()=>{
-        setAmountError('')
-    },[amount])
-    useEffect(()=>{
         setCooldownError('')
     },[cooldown])
     useEffect(()=>{
@@ -73,13 +68,8 @@ const BanOptions = (props: {open: boolean, index: number, permType: string, onCl
         const perm = botContext.bot!.config.permissions[props.index]
         setAllowed(perm.allowed)
         setAllowedOn(perm.on)
-        if(!Object.keys(perm.opts).length){
-            setAmount('')
-            setCooldown('')
-            return
-        }
-        setAmount(perm.opts.amount.toString())
-        setCooldown(perm.opts.cooldown.toString())
+        setAmount(perm.opts.amount ?? '')
+        setCooldown(perm.opts.cooldown ?? '')
     },[props, botContext.bot])
     return (
         <Dialog
@@ -106,8 +96,6 @@ const BanOptions = (props: {open: boolean, index: number, permType: string, onCl
                 <TextField
                     onChange={(e)=> setAmount(e.target.value.replace(/[^-0-9]|(\d-)/g, ''))}
                     label="Duration"
-                    helperText={amountError}
-                    error={!!amountError.length}
                     value={amount}
                     />
             </Grid>

@@ -91,17 +91,10 @@ const SetOptions = (props: {open: boolean, index: number, permType: string, onCl
         const perm = botContext.bot!.config.permissions[props.index]
         setAllowed(perm.allowed)
         setAllowedOn(perm.on)
-        if(!Object.keys(perm.opts).length){
-            setMaxAmount('')
-            setMinAmount('')
-            setCooldown('')
-            setMaxCalls('')
-            return
-        }
-        setMaxAmount(perm.opts.maxAmount.toString())
-        setMinAmount(perm.opts.minAmount.toString())
-        setCooldown(perm.opts.cooldown.toString())
-        setMaxCalls(perm.opts.maxCalls.toString())
+        setMaxAmount(perm.opts.maxAmount ?? '')
+        setMinAmount(perm.opts.minAmount ?? '')
+        setCooldown(perm.opts.cooldown ?? '')
+        setMaxCalls(perm.opts.maxCalls ?? '')
     },[props, botContext.bot])
     return (
         <Dialog
