@@ -1,8 +1,15 @@
-const User = () => {
+import {useEffect} from 'react'
+import {
+    useTheme
+} from "@mui/material"
 
+const User = () => {
+    const theme = useTheme()
+    useEffect(()=>{
+        document.body.style.background = theme.background.secondary
+    },[theme])
     return (
         <div>
-            Hello world!
         </div>
     )
 }
