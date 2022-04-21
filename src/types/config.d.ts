@@ -1,25 +1,25 @@
-export type otherOptions = {
+interface otherOptions {
     cooldown?: number,
     maxAmount?: number,
     maxCalls?: number,
     minAmount?: number,
     amount?: number
 }
-export type command = {
+interface command {
     type: string,
     permType: string,
     description: string,
 }
-export type role = {
+interface role {
     name: string,
     roleid: string,
     priority: string
 }
-export type rank = {
+interface rank {
     name: string,
     minRep: number
 }
-export type permission = {
+interface permission {
     command: string,
     allowed: string,
     on: Array<string>,

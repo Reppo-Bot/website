@@ -3,7 +3,6 @@ import {useEffect, useState} from "react"
 import Sidebar from "./Sidebar"
 import ConfigContext, {bot} from "./ConfigContext"
 import EditConfig from "./EditConfig"
-import {permission, rank, role} from "./../types"
 import SubmitPane from "./SubmitPane"
 
 const Config = () => {

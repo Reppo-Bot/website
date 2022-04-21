@@ -1,4 +1,3 @@
-import {rank} from "./../types"
 import {
     Dialog,
     DialogTitle,

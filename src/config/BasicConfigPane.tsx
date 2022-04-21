@@ -9,7 +9,6 @@ import React, {useContext, useState} from "react"
 import {Delete, Add, Edit} from "@mui/icons-material"
 import RoleDialog from "./RoleDialog"
 import RankDialog from "./RankDialog"
-import {rank, role} from "./../types"
 
 type configType = 'Ranks' | 'Roles'
 const BasicConfigPane = (props: {type: configType}) => {
