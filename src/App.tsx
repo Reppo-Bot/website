@@ -9,7 +9,7 @@ import {useCookies} from 'react-cookie'
 import {getDesignTokens} from './utils/global'
 import Config from './config/Config'
 import Gatekeeper from './Gatekeeper'
-import User from "./user/User"
+import UserContainer from "./user/UserContainer"
 import NotFound from "./NotFound"
 
 const App = () => {
@@ -67,7 +67,7 @@ const App = () => {
                         <Gatekeeper>
                             <Config/>
                         </Gatekeeper>}/>
-                    <Route path='/user/:id' element={<User/>}/>
+                    <Route path='/user/:id' element={<UserContainer/>}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
             </BrowserRouter>
