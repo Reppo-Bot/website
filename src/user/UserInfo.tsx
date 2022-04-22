@@ -1,4 +1,3 @@
-import {useParams} from "react-router-dom"
 import {
     Avatar,
     Box,
@@ -8,6 +7,7 @@ import {
 } from "@mui/material"
 import {useEffect, useState} from "react"
 import {getUser} from "./../utils/user"
+import {useParams} from "react-router-dom"
 
 const UserInfo = () => {
     const params = useParams()
