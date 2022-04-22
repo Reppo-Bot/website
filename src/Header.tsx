@@ -2,20 +2,21 @@ import React, {useContext} from 'react'
 import {
     Box,
     Typography,
-    Link
+    Link,
+    useTheme
 } from "@mui/material"
+import {Link as RouterLink} from "react-router-dom"
 import PageContext from "./PageContext"
 import ProfileMenu from "./ProfileMenu"
-import {getConfig} from "./utils/config"
 
 const Header = () => {
     const context = useContext(PageContext)
-
+    const theme = useTheme()
     return (
         <Box component="div" sx={{
                 position: "absolute",
                 width: '100vw',
-                bgcolor: '#1a1c1e',
+                bgcolor: theme.palette.mode === 'light' ? "white": theme.palette.background.default,
                 display: 'flex',
                 justifyContent: 'flex-end',
                 alignItems: 'center',
@@ -23,6 +24,19 @@ const Header = () => {
                 paddingTop: '10px',
                 paddingBottom: '10px',
             }}>
+            <RouterLink to='/' style={{
+                textDecoration: 'none',
+                marginRight: 'auto',
+                paddingLeft: '10px',}}>
+                <Typography
+                    sx={{
+                        color: theme.palette.text.primary,
+                        fontWeight: '350',
+                    }}
+                    variant="h4">
+                    Reppo
+                </Typography>
+            </RouterLink>
             {context.accessToken === '' ? (
                 <>
                     <Link
@@ -36,7 +50,7 @@ const Header = () => {
                 </>
             ) : (
                 <>
-                    <Typography sx={{marginRight: '10px'}}>
+                    <Typography sx={{color: theme.palette.text.primary, marginRight: '10px'}}>
                         {context.user.name}
                     </Typography>
                     <ProfileMenu user={context.user}/>

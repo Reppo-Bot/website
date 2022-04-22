@@ -1,6 +1,8 @@
+import ENV_URL from "./env"
+
 export async function getConfig(token: string, serverid :string){
     try{
-        const res = await fetch("http://web.localhost:8080/private/getConfig", {
+        const res = await fetch(`http://web.${ENV_URL}/private/getConfig`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,7 +26,7 @@ export async function getConfig(token: string, serverid :string){
 
 export async function getBots(token: string){
     try{
-        const res = await fetch("http://web.localhost:8080/private/getBots", {
+        const res = await fetch(`http://web.${ENV_URL}/private/getBots`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,7 +47,7 @@ export async function getBots(token: string){
 
 export async function addServer(token: string, serverid: string){
     try{
-        const res = await fetch("http://web.localhost:8080/private/addServer", {
+        const res = await fetch(`http://web.${ENV_URL}/private/addServer`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +71,7 @@ export async function addServer(token: string, serverid: string){
 
 export async function removeServer(token: string, serverid: string){
     try{
-        const res = await fetch("http://web.localhost:8080/private/removeServer", {
+        const res = await fetch(`http://web.${ENV_URL}/private/removeServer`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -93,7 +95,7 @@ export async function removeServer(token: string, serverid: string){
 
 export async function updateConfig(token: string, serverid: string, config: object){
     try{
-        const res = await fetch("http://web.localhost:8080/private/removeServer", {
+        const res = await fetch(`http://web.${ENV_URL}/private/updateConfig`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

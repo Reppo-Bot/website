@@ -8,7 +8,7 @@ type state = "success" | "failed" | "waiting"
 const Authorize = () => {
     const navigate = useNavigate()
     const context = useContext(PageContext)
-    const [authState, setAuthState] = useState("waiting")
+    const [authState, setAuthState] = useState<state>("waiting")
     useEffect(() => {
         async function onAuth(){
             const fragment = new URLSearchParams(window.location.hash.slice(1));
@@ -29,7 +29,8 @@ const Authorize = () => {
             context.setUser({name: user.username, id: user.id, avatar: user.avatar})
             context.setCookie('user', {name: user.username, id: user.id, avatar: user.avatar}, {expires: expDate})
             context.setCookie('token', accessToken, {expires: expDate})
-            context.setTokenInfo(accessToken, expiresIn, () => navigate('/'))
+            context.setTokenInfo(accessToken, parseInt(expiresIn))
+            navigate('/')
         }
         onAuth()
     },[navigate, context])
