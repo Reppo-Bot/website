@@ -27,7 +27,6 @@ const UserInfo = () => {
     return (
         <>
             <Box sx={{
-                margin: '50px 0 0 50px',
                 display: 'inline-flex',
                 width: '50vw'
             }} >

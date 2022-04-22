@@ -8,18 +8,18 @@ export async function getUser(userid :string){
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-            	userid
-            	})
+                userid
+                })
         })
         if(res.status !== 200){
-        	const payload = await res.json()
+            const payload = await res.json()
             throw new Error(payload.failed)
         }
         return (await res.json()).success
     }
     catch (e){
         console.log(e)
-        return undefined
+        return null
     }
 }
 
@@ -42,7 +42,7 @@ export async function getReps(userid :string){
     }
     catch (e){
         console.log(e)
-        return undefined
+        return null
     }
 }
 

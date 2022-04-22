@@ -1,8 +1,10 @@
 import {useEffect} from 'react'
 import {
-    useTheme
+    useTheme,
+    Box
 } from "@mui/material"
 import UserInfo from "./UserInfo"
+import UserRep from "./UserRep"
 
 const UserContainer = () => {
     const theme = useTheme()
@@ -11,11 +13,22 @@ const UserContainer = () => {
     },[theme])
 
     return (
-        <div style={{
-            paddingTop: '76px'
+        <Box sx={{
+            paddingTop: '126px',
+            display: 'flex',
         }}>
-            <UserInfo/>
-        </div>
+            <Box sx={{
+                marginLeft: '50px'
+            }}>
+                <UserInfo/>
+            </Box>
+
+            <Box sx={{
+                marginInlineStart: 'auto'
+            }}>
+                <UserRep/>
+            </Box>
+        </Box>
     )
 }
 
