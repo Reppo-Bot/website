@@ -12,7 +12,7 @@ import {
 import {getReps} from "./../utils/user"
 import {getServer} from "./../utils/server"
 import {useParams} from "react-router-dom"
-import {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useNavigate} from "react-router-dom"
 
 const UserRep = () => {
@@ -38,9 +38,9 @@ const UserRep = () => {
             setReps([])
             return
         }
-        const _reps = getReps(params.id)
-        .then((_reps)=>{
-            setReps(_reps)
+        getReps(params.id)
+        .then((reps)=>{
+            setReps(reps)
         })
     },[params])
 
@@ -64,7 +64,8 @@ const UserRep = () => {
             </Typography>
             <List>
             {reps.map((rep)=>
-                <ListItem key={rep.serverid} sx={{
+                <React.Fragment key={rep.serverid}>
+                <ListItem sx={{
                         padding: 0,
                         margin: 0
                     }} >
@@ -80,6 +81,8 @@ const UserRep = () => {
                         </ListItemText>
                     </ListItemButton>
                 </ListItem>
+                <Divider/>
+                </React.Fragment>
                 )}
             </List>
         </Paper>

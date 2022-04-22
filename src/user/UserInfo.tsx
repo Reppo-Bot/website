@@ -18,7 +18,7 @@ const UserInfo = () => {
             setUser(null)
             return
         }
-        const user = getUser(params.id)
+        getUser(params.id)
         .then((user)=>setUser(user))
     },[params])
     if(user === null){

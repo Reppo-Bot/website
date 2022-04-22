@@ -30,8 +30,9 @@ const Header = () => {
                 paddingLeft: '10px',}}>
                 <Typography
                     sx={{
-                        color: theme.palette.text.primary,
-                        fontWeight: '350',
+                        color: theme.palette.primary.main,
+                        fontWeight: '600',
+                        fontWidth: '150%'
                     }}
                     variant="h4">
                     Reppo
