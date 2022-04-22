@@ -9,26 +9,11 @@ import {useState, useEffect} from 'react'
 import {search} from './utils/homepage'
 import {Link} from 'react-router-dom'
 
-type serverEntry = {
-    avatar: string,
-    id: string,
-    name: string,
-    group: string
-}
-
-type userEntry = {
-    name: string,
-    avatar: string,
-    group: string,
-    id: string,
-    discordid: string
-}
-
 const SearchBox = () => {
-    const [options, setOptions] = useState<(serverEntry|userEntry)[]>([])
+    const [options, setOptions] = useState<(Server|User)[]>([])
     const [inputValue, setInputValue] = useState('')
     const theme  = useTheme()
-    const getUrl = (option: serverEntry)=>{
+    const getUrl = (option: User | Server)=>{
         if(option.group === 'Server'){
             return `https://cdn.discordapp.com/icons/${option.id}/${option.avatar}?size=480`
         }
@@ -36,6 +21,18 @@ const SearchBox = () => {
             return `https://cdn.discordapp.com/avatars/${option.id}/${option.avatar}?size=480`
         }
     }
+
+    const getAvatar = (entity: Server | User) => {
+        if(entity.avatar === ""){
+            return (
+                <Avatar>
+                    {entity.name[0]}
+                </Avatar>
+            )
+        }
+        return <Avatar src={`https://cdn.discordapp.com/${entity.group === 'Server' ? "icons":"avatars"}/${entity.id}/${entity.avatar}?size=480`} alt={entity.name}/>
+    }
+
     useEffect(() => {
         if(inputValue === ''){
             setOptions([])
@@ -44,13 +41,13 @@ const SearchBox = () => {
 
         search(inputValue).then((payload) => {
             if(payload){
-                const servers = payload[0].map((option: serverEntry)=>{
+                const servers = payload[0].map((option: Server)=>{
                     return {...option, group: "Server"}
                 })
-                const users = payload[1].map((option: userEntry)=>{
+                const users = payload[1].map((option: User)=>{
                     return {...option, id: option.discordid, group: "User"}
                 })
-                const results: (serverEntry|userEntry)[]= [...users, ...servers]
+                const results: (Server|User)[]= [...users, ...servers]
                 setOptions(results)
             }
         })
@@ -68,7 +65,7 @@ const SearchBox = () => {
                 onInputChange={(event, newInputValue) => {
                     setInputValue(newInputValue);
                 }}
-                groupBy={(option) => option.group}
+                groupBy={(option) => option.group!}
                 renderOption={(props, option, state)=>{
                     return (
                         <ul key={option.id} style={{paddingTop: '5px', paddingBottom: '5px'}}>
@@ -78,11 +75,7 @@ const SearchBox = () => {
                                     display: 'flex'
                                 }}
                                 to={`/${option.group}/${option.id}`}>
-                                {option.avatar === "" || option.avatar === null ? (
-                                    <Avatar/>
-                                ) : (
-                                    <Avatar src={getUrl(option)} alt={option.name}/>
-                                )}
+                                {getAvatar(option)}
                                 <Typography variant="h6" sx={{paddingLeft: '10px', color: theme.palette.text.primary}}>
                                     {option.name}
                                 </Typography>

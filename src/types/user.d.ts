@@ -2,7 +2,8 @@ interface User {
     avatar: string,
     discordid: string,
     id: string,
-    name: string
+    name: string,
+    group?: string
 }
 
 interface Rep {
@@ -16,4 +17,5 @@ interface Server {
     avatar: string,
     id: string,
     name: string
+    group?: string
 }
