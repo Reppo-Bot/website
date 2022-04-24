@@ -1,10 +1,12 @@
 import {useEffect} from 'react'
 import {
     useTheme,
+    Grid,
     Box
 } from "@mui/material"
 import UserInfo from "./UserInfo"
 import UserRep from "./UserRep"
+import UserActivity from "./UserActivity"
 
 const UserContainer = () => {
     const theme = useTheme()
@@ -13,22 +15,33 @@ const UserContainer = () => {
     },[theme])
 
     return (
-        <Box sx={{
+        <>
+        <Grid container sx={{
             paddingTop: '126px',
-            display: 'flex',
+            paddingLeft: '50px',
         }}>
-            <Box sx={{
-                marginLeft: '50px'
-            }}>
-                <UserInfo/>
-            </Box>
-
-            <Box sx={{
-                marginInlineStart: 'auto'
-            }}>
+            <Grid item xs={6}>
+                <Box>
+                    <UserInfo/>
+                </Box>
+            </Grid>
+            <Grid item xs={6}>
                 <UserRep/>
-            </Box>
+            </Grid>
+        </Grid>
+        <Box sx={{
+            position: 'fixed',
+            bottom: 0,
+            paddingLeft: '50px',
+            paddingBottom: '50px'
+        }} >
+            <Grid container sx={{width: '100vw'}}>
+                <Grid item  xs={6}>
+                    <UserActivity/>
+                </Grid>
+            </Grid>
         </Box>
+        </>
     )
 }
 

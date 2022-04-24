@@ -57,7 +57,9 @@ const UserRep = () => {
         <Paper variant="outlined" sx={{
             padding: '20px',
             marginRight: '15vw',
-            width: '300px'
+            right: 0,
+            width: '300px',
+            float: "right"
         }} >
             <Typography variant="h4">
                 Reputations
