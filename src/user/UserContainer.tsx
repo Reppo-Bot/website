@@ -7,6 +7,7 @@ import {
 import UserInfo from "./UserInfo"
 import UserRep from "./UserRep"
 import UserActivity from "./UserActivity"
+import UserTransactions from "./UserTransactions"
 
 const UserContainer = () => {
     const theme = useTheme()
@@ -38,6 +39,9 @@ const UserContainer = () => {
             <Grid container sx={{width: '100vw'}}>
                 <Grid item  xs={6}>
                     <UserActivity/>
+                </Grid>
+                <Grid item  xs={6}>
+                    <UserTransactions/>
                 </Grid>
             </Grid>
         </Box>

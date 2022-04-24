@@ -5,7 +5,6 @@ import {
     getActivityForMonth,
     getActivityForYear}
 from "./../utils/user"
-import {getServer} from "./../utils/server"
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import {
