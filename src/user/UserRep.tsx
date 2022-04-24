@@ -56,7 +56,7 @@ const UserRep = () => {
     return (
         <Paper variant="outlined" sx={{
             padding: '20px',
-            marginRight: '15vw',
+            marginRight: '5vw',
             right: 0,
             width: '300px',
             float: "right"
