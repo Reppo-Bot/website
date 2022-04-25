@@ -62,6 +62,9 @@ function ProfileMenu(props: {user?: {id: string, avatar: string, name: string}})
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 >
+                <MenuItem onClick={() => navigate(`/user/${props.user!.id!}`)}>
+                    Profile
+                </MenuItem>
                 <MenuItem onClick={() => navigate('/config')}>
                     Config
                 </MenuItem>
