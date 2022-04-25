@@ -32,37 +32,38 @@ const UserActivity = () =>{
     const params = useParams()
     const [period, setPeriod] = useState<timespan>("day")
     const [data, setData] = useState<any>(undefined)
-    const getActivity = async (activityPeriod : timespan) =>{
-        if(!params.id) return
-        let payload = undefined
-        if(activityPeriod === "day") payload = await getActivityForDay(params.id)
-        if(activityPeriod === "month") payload = await getActivityForMonth(params.id)
-        if(activityPeriod === "year") payload = await getActivityForYear(params.id)
-        let flatened = {} as {[name: string]: number}
-        payload.forEach((entry: activityPayload)=>{
-            const index = entry.action.commandname + " From " + entry.Bot.servername
-            flatened[index] = (flatened[index] ?? 0) + 1
-        })
-        let _data = {
-            labels: [] as string[],
-            datasets: [{
-                label: "Activity For Today",
-                data: [] as number[],
-                hoverOffset: 20,
-                radius: "90%",
-            }],
-        }
-        Object.keys(flatened).forEach((key)=>{
-            _data.labels.push(key)
-            _data.datasets[0].data.push(flatened[key])
-        })
 
-        setData(_data)
-    }
     useEffect(()=>{
+        async function getActivity(activityPeriod : timespan){
+            if(!params.id) return
+            let payload = undefined
+            if(activityPeriod === "day") payload = await getActivityForDay(params.id)
+            if(activityPeriod === "month") payload = await getActivityForMonth(params.id)
+            if(activityPeriod === "year") payload = await getActivityForYear(params.id)
+            let flatened = {} as {[name: string]: number}
+            payload.forEach((entry: activityPayload)=>{
+                const index = entry.action.commandname + " From " + entry.Bot.servername
+                flatened[index] = (flatened[index] ?? 0) + 1
+            })
+            let _data = {
+                labels: [] as string[],
+                datasets: [{
+                    label: "Activity For Today",
+                    data: [] as number[],
+                    hoverOffset: 20,
+                    radius: "90%",
+                }],
+            }
+            Object.keys(flatened).forEach((key)=>{
+                _data.labels.push(key)
+                _data.datasets[0].data.push(flatened[key])
+            })
+
+            setData(_data)
+        }
         setData(undefined)
         getActivity(period)
-    },[period])
+    },[period, params.id])
 
     return (
         <>
