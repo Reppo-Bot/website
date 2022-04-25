@@ -9,12 +9,12 @@ import {
     Paper,
     Typography,
     Grid,
-    List,
     CircularProgress,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
     Divider
 } from "@mui/material"
 import autocolors from 'chartjs-plugin-autocolors';
@@ -57,40 +57,39 @@ const UserTransactions = () =>{
                         </Typography>
                     </Grid>
                     {data !== undefined ?(
-                        <List>
-                            <ListItem>
-                                <ListItemText>
+                        <Table>
+                            <TableHead>
+                            <TableRow>
+                                <TableCell>
                                     Command Name
-                                </ListItemText>
-                                <ListItemText primaryTypographyProps={{variant: "h6"}} sx={{marginLeft: 'auto', textAlign: 'end'}} >
+                                </TableCell>
+                                <TableCell>
                                     Server Name
-                                </ListItemText>
-                                <ListItemText primaryTypographyProps={{variant: "h6"}} sx={{marginLeft: 'auto', textAlign: 'end'}} >
+                                </TableCell>
+                                <TableCell>
                                     Date
-                                </ListItemText>
-                            </ListItem>
+                                </TableCell>
+                            </TableRow>
+                            </TableHead>
+                            <TableBody>
                             {data.map((trans: activityPayload, index: number)=>(
-                            <React.Fragment key={index}>
-                                <ListItem sx={{
+                                <TableRow key={index} sx={{
                                         padding: 0,
                                         margin: 0
                                     }} >
-                                    <ListItemButton onClick={()=>navigate("/"+trans.serverid)} >
-                                        <ListItemText>
+                                        <TableCell>
                                             {trans.action.commandname[0].toUpperCase() + trans.action.commandname.slice(1)}
-                                        </ListItemText>
-                                        <ListItemText primaryTypographyProps={{variant: "h6"}} sx={{marginLeft: 'auto', textAlign: 'end'}} >
+                                        </TableCell>
+                                        <TableCell>
                                             {trans.Bot.servername}
-                                        </ListItemText>
-                                        <ListItemText primaryTypographyProps={{variant: "h6"}} sx={{marginLeft: 'auto', textAlign: 'end'}} >
+                                        </TableCell>
+                                        <TableCell>
                                             {(new Date(trans.time)).toLocaleDateString()}
-                                        </ListItemText>
-                                    </ListItemButton>
-                                </ListItem>
-                                <Divider/>
-                            </React.Fragment>
+                                        </TableCell>
+                                </TableRow>
                             ))}
-                        </List>
+                            </TableBody>
+                        </Table>
                     ):(
                     <Grid sx={{alignItems: "center", height: '100%'}} container justifyContent="center">
                             <CircularProgress color="inherit" />
