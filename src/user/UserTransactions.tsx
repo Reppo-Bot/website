@@ -69,8 +69,8 @@ const UserTransactions = () =>{
                                     Date
                                 </ListItemText>
                             </ListItem>
-                            {data.map((trans: activityPayload)=>(
-                            <React.Fragment>
+                            {data.map((trans: activityPayload, index: number)=>(
+                            <React.Fragment key={index}>
                                 <ListItem sx={{
                                         padding: 0,
                                         margin: 0
