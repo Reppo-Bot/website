@@ -3,7 +3,6 @@ import {useParams} from "react-router-dom"
 import {useEffect, useState} from "react"
 import {getRecentTransactions}
 from "./../utils/user"
-import {useNavigate} from "react-router-dom"
 import {
     Box,
     Paper,
@@ -14,10 +13,8 @@ import {
     TableBody,
     TableCell,
     TableHead,
-    TableRow,
-    Divider
+    TableRow
 } from "@mui/material"
-import autocolors from 'chartjs-plugin-autocolors';
 
 type activityPayload = {
     action: {
@@ -29,17 +26,14 @@ type activityPayload = {
     serverid: string,
     time: Date
 }
-type timespan = "day" | "month" | "year"
 const UserTransactions = () =>{
     const params = useParams()
-    const navigate = useNavigate()
-    const [period, setPeriod] = useState<timespan>("day")
     const [data, setData] = useState<any>(undefined)
     useEffect(()=>{
         if(!params.id) return
         getRecentTransactions(params.id, 4)
         .then((res)=>setData(res))
-    },[])
+    },[params.id])
     return (
         <>
             <Box sx={{
