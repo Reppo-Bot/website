@@ -9,6 +9,8 @@ import {useCookies} from 'react-cookie'
 import {getDesignTokens} from './utils/global'
 import Config from './config/Config'
 import Gatekeeper from './Gatekeeper'
+import UserContainer from "./user/UserContainer"
+import NotFound from "./NotFound"
 
 const App = () => {
     const [accessToken, setAccessToken] = useState('')
@@ -61,7 +63,12 @@ const App = () => {
                 <Routes>
                     <Route path='/' element={<Home/>}/>
                     <Route path='/auth' element={<Authorize/>}/>
-                    <Route path='/config' element={<Gatekeeper><Config/></Gatekeeper>}/>
+                    <Route path='/config' element={
+                        <Gatekeeper>
+                            <Config/>
+                        </Gatekeeper>}/>
+                    <Route path='/user/:id' element={<UserContainer/>}/>
+                    <Route path="*" element={<NotFound/>}/>
                 </Routes>
             </BrowserRouter>
             </PageContext.Provider>

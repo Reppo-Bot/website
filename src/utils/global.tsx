@@ -66,7 +66,18 @@ export const getDesignTokens = (mode: PaletteMode)=> ({
                 main: '#6fdc8e'
             }
         }),
-    }
+    },
+    ...(mode === 'light' ? {
+        background: {
+            primary: '#fdfcff',
+            secondary: '#dddcdf'
+        }
+    } : {
+        background: {
+            primary: '#1a1c1e',
+            secondary: '#3a3c3e'
+        }
+    })
 })
 
 export async function login(accessToken: string, expiration: string){

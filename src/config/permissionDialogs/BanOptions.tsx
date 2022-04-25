@@ -12,7 +12,6 @@ import {
 import {useState, useEffect, useContext} from "react"
 import ConfigContext from "./../ConfigContext"
 import AllowedForm from "./AllowedForm"
-import {otherOptions} from "./../../types"
 
 const BanOptions = (props: {open: boolean, index: number, permType: string, onClose:()=>void}) => {
     const [amount, setAmount] = useState<string>('')

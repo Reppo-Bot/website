@@ -12,7 +12,6 @@ import {
     InputLabel
 } from "@mui/material"
 import React, {useState, useEffect, useContext} from 'react'
-import {command, permission} from "./../types"
 import ConfigContext from "./ConfigContext"
 
 

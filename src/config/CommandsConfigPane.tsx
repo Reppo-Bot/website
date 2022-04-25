@@ -8,7 +8,6 @@ import ConfigContext from "./ConfigContext"
 import React, {useContext, useState} from "react"
 import {Delete, Add, Edit} from "@mui/icons-material"
 import CommandDialog from "./CommandDialog"
-import {command} from "./../types"
 
 const BasicConfigPane = () => {
     const botContext = useContext(ConfigContext)
