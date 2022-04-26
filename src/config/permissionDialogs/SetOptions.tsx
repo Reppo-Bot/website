@@ -60,7 +60,7 @@ const SetOptions = (props: {open: boolean, index: number, permType: string, onCl
             cooldown: _cooldown,
             maxCalls: _maxCalls
         }
-        let newPermissionsList = botContext.bot!
+        const newPermissionsList = botContext.bot!
         if(props.permType !== 'all'){
             newPermissionsList.config.permissions[props.index].allowed = allowed
             newPermissionsList.config.permissions[props.index].on = allowedOn

@@ -22,8 +22,11 @@ const BasicConfigPane = () => {
         setSelected([configItem, name])
     }
     const handleDelete = (name: string) =>{
-        let newCommandList = botContext.bot!
+        const newCommandList = botContext.bot!
         delete newCommandList.config.commands[name]
+        newCommandList.config.permissions = newCommandList.config.permissions.filter((perm: permission) => {
+            return !(perm.command === name.toLowerCase().trim())
+        })
         botContext.setBot({...newCommandList})
         return
     }

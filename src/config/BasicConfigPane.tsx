@@ -35,13 +35,13 @@ const BasicConfigPane = (props: {type: configType}) => {
     const handleDelete = (index: number) =>{
         if(botContext.bot === undefined) return
         if(props.type.toLowerCase() === 'roles'){
-            let newRolesList = botContext.bot!
+            const newRolesList = botContext.bot!
             delete newRolesList.config.roles[index]
             botContext.setBot({...newRolesList})
             return
         }
         if(props.type.toLowerCase() === 'ranks'){
-            let newRanksList = botContext.bot!
+            const newRanksList = botContext.bot!
             delete newRanksList.config.ranks[index]
             botContext.setBot({...newRanksList})
             return
@@ -59,6 +59,7 @@ const BasicConfigPane = (props: {type: configType}) => {
                         {props.type}
                     </Typography>
                 </Grid>
+                {/*//@ts-expect-error This should most likely be refactored @TODO */}
                 {botContext.bot.config[props.type.toLowerCase()].map((conf: role | rank, index: number)=>
                     <React.Fragment key={conf.name}>
                         <Grid item xs={6}>

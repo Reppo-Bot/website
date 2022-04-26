@@ -39,7 +39,7 @@ const RoleDialog = (props: {open: number, selected: role | null, onClose: () => 
             priority
         }
         if(!botContext.bot) return
-        let newRoleList = botContext.bot.config.roles
+        const newRoleList = botContext.bot.config.roles
         if(props.open === -2){
             newRoleList.push(role)
         } else newRoleList[props.open] = role

@@ -1,9 +1,9 @@
-import {useContext, useEffect} from "react"
+import React, {useContext, useEffect} from "react"
 import {useNavigate} from "react-router-dom";
 import PageContext from "./PageContext"
 import {Typography} from "@mui/material"
 
-const Gatekeeper = (props:any) =>{
+const Gatekeeper = (props: {children: React.ReactNode}) =>{
     const navigate = useNavigate()
     const context = useContext(PageContext)
     useEffect(()=>{

@@ -1,15 +1,9 @@
 import React from "react"
-export type bot = {
-    config: any,
-    ownerid: string,
-    serveravatar: string,
-    serverid: string
-}
 interface botConfig {
-    bot?: bot;
-    setBot: (bot: bot)=>void;
+    bot?: Bot;
+    setBot: (bot: Bot)=>void;
 }
 const ConfigContext = React.createContext<botConfig>({
-    setBot: (bot: bot)=>{}
+    setBot: (bot: Bot)=>{return null}
 })
 export default ConfigContext

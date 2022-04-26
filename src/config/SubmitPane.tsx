@@ -3,9 +3,10 @@ import {
     Paper,
     Alert,
     CircularProgress,
-    Backdrop
+    Backdrop,
+    AlertColor
 } from "@mui/material"
-import ConfigContext, {bot} from "./ConfigContext"
+import ConfigContext from "./ConfigContext"
 import {useContext, useState} from 'react'
 import {getBots, updateConfig} from "./../utils/config"
 import PageContext from "./../PageContext"
@@ -13,15 +14,15 @@ import PageContext from "./../PageContext"
 const SubmitPane = () => {
     const botContext = useContext(ConfigContext)
     const context = useContext(PageContext)
-    const [status, setStatus] = useState<string | null>(null)
+    const [status, setStatus] = useState<AlertColor | null>(null)
     const [statusMessage, setStatusMessage] = useState<string>('')
     const resetStatus = () => {
         setTimeout(()=> setStatus(null), 5000)
         setTimeout(()=> setStatusMessage(''), 5000)
     }
     const handleCancel = () => {
-        setStatus('loading')
-        getBots(context.accessToken).then((bots: bot[])=>{
+        setStatus('warning')
+        getBots(context.accessToken).then((bots: Bot[])=>{
             if(!bots){
                 setStatus('error')
                 setStatusMessage('Failed to grab config from database')
@@ -30,12 +31,13 @@ const SubmitPane = () => {
             }
             // This maddness is so that oldbot is technically the same memory address as is in bots from
             // sidebar. This needs to be migrated to a state store later on
-            let newBot =  bots.find((bot: bot) => bot.serverid === botContext.bot!.serverid)
-            let oldBot = botContext.bot!
+            const newBot =  bots.find((bot: Bot) => bot.serverid === botContext.bot!.serverid)
+            const oldBot = botContext.bot!
             oldBot.config.ranks = newBot!.config.ranks
             oldBot.config.roles = newBot!.config.roles
             oldBot.config.commands = newBot!.config.commands
             oldBot.config.permissions = newBot!.config.permissions
+            oldBot.updateStatus = "pending"
             botContext.setBot({...oldBot})
             setStatus('success')
             setStatusMessage('Successfully reverted to stored config')
@@ -43,7 +45,7 @@ const SubmitPane = () => {
         })
     }
     const handleSave = async () => {
-        setStatus('loading')
+        setStatus('warning')
         const res = await updateConfig(context.accessToken, botContext.bot!.serverid, botContext.bot!.config)
         if(res){
             setStatus('success')
@@ -75,11 +77,11 @@ const SubmitPane = () => {
             </Paper>
             <Backdrop
                 sx={{color: '#fff'}}
-                open={status === 'loading'}
+                open={status === 'warning'}
                 >
                 <CircularProgress color="inherit" />
             </Backdrop>
-            {status !== null && status !== 'loading' ? (
+            {status !== null && status !== 'warning' ? (
                 <>
                     <Alert sx={{
                         position: 'absolute',
@@ -88,7 +90,6 @@ const SubmitPane = () => {
                         padding: '15px',
                         margin: '40px',
                         marginBottom: '120px'
-                    // @ts-expect-error
                     }} severity={status}>{statusMessage}</Alert>
                 </>
                     ): null}

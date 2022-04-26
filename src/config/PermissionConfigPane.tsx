@@ -45,7 +45,7 @@ const PermissionConfigPane = () => {
         setSelected([permItem, index])
     }
     const handleDelete = (index: number) =>{
-        let newCommandList = botContext.bot!
+        const newCommandList = botContext.bot!
         delete newCommandList.config.permissions[index]
         botContext.setBot({...newCommandList})
         return

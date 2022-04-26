@@ -32,7 +32,7 @@ const RankDialog = (props: {open: number, selected: rank | null, onClose: () => 
             minRep
         }
         if(!botContext.bot) return
-        let newRankList = botContext.bot.config.ranks
+        const newRankList = botContext.bot.config.ranks
         if(props.open === -2){
             newRankList.push(rank)
         } else newRankList[props.open] = rank

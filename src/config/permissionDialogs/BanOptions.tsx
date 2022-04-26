@@ -45,7 +45,7 @@ const BanOptions = (props: {open: boolean, index: number, permType: string, onCl
         if(!isNaN(_amount)){
             opts.amount = _amount
         }
-        let newPermissionsList = botContext.bot!
+        const newPermissionsList = botContext.bot!
         if(props.permType !== 'all'){
             newPermissionsList.config.permissions[props.index].allowed = allowed
             newPermissionsList.config.permissions[props.index].on = allowedOn
