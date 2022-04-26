@@ -28,7 +28,7 @@ const RankDialog = (props: {open: number, selected: rank | null, onClose: () => 
         }
         if(errors) return
         const rank = {
-            name,
+            name: name.toLowerCase(),
             minRep
         }
         if(!botContext.bot) return

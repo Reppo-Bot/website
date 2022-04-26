@@ -34,7 +34,7 @@ const RoleDialog = (props: {open: number, selected: role | null, onClose: () => 
         }
         if(errors) return
         const role = {
-            name,
+            name: name.toLowerCase(),
             roleid,
             priority
         }
