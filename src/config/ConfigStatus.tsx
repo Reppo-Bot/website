@@ -8,16 +8,18 @@ import PageContext from "./../PageContext"
 const ConfigStatus = (props: {serverid: string, initStatus: string}) =>{
     const context = useContext(PageContext)
     const [status, setStatus] = useState(props.initStatus)
-    let intervalId: null | ReturnType<typeof setTimeout> = null
+    let intervalId: null | ReturnType<typeof setInterval> = null
     const watchStatus = async () =>{
         setStatus(await getUpdateStatus(context.accessToken, props.serverid))
     }
     if(status === "pending"){
-        intervalId = setTimeout(watchStatus, 2000)
+        console.log("Pending")
+        intervalId = setInterval(watchStatus, 2000)
     }
     useEffect(()=>{
         if(intervalId !== null && status !== "pending"){
             clearInterval(intervalId)
+            console.log("Status Changed!")
         }
     },[status, intervalId])
     if(status === "success"){
