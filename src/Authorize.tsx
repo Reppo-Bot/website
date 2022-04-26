@@ -18,7 +18,7 @@ const Authorize = () => {
                 return
             }
             const user = await getUser(accessToken, tokenType)
-            let expDate = new Date()
+            const expDate = new Date()
             expDate.setSeconds(expDate.getSeconds() + parseInt(expiresIn))
             const payload = await login(accessToken, expDate.toLocaleString())
             if(!payload){

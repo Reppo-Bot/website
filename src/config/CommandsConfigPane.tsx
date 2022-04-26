@@ -22,7 +22,7 @@ const BasicConfigPane = () => {
         setSelected([configItem, name])
     }
     const handleDelete = (name: string) =>{
-        let newCommandList = botContext.bot!
+        const newCommandList = botContext.bot!
         delete newCommandList.config.commands[name]
         botContext.setBot({...newCommandList})
         return

@@ -79,7 +79,7 @@ const CommandDialogController = (props: {open: boolean, selected: [command | nul
             type: commandType,
             permType: permType
         }
-        let newCommandList = botContext.bot!
+        const newCommandList = botContext.bot!
         if(props.selected[1] !== ''){
             delete newCommandList.config.commands[props.selected[1]]
             newCommandList.config.permissions = newCommandList.config.permissions.filter((perm: permission) => {

@@ -8,7 +8,7 @@ import {useContext} from 'react'
 const AddNewPermissionDialog = (props: {anchor: any, open: boolean, onClose: (val: boolean)=>void}) => {
     const botContext = useContext(ConfigContext)
     const handleAddCommand = (command: string) => {
-        let newPermissions = botContext.bot!
+        const newPermissions = botContext.bot!
         newPermissions.config.permissions.push({
             command: command,
             allowed: "",

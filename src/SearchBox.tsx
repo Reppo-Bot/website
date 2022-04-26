@@ -13,14 +13,6 @@ const SearchBox = () => {
     const [options, setOptions] = useState<(Server|User)[]>([])
     const [inputValue, setInputValue] = useState('')
     const theme  = useTheme()
-    const getUrl = (option: User | Server)=>{
-        if(option.group === 'Server'){
-            return `https://cdn.discordapp.com/icons/${option.id}/${option.avatar}?size=480`
-        }
-        if(option.group === "User"){
-            return `https://cdn.discordapp.com/avatars/${option.id}/${option.avatar}?size=480`
-        }
-    }
 
     const getAvatar = (entity: Server | User) => {
         if(entity.avatar === ""){

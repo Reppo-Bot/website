@@ -40,12 +40,12 @@ const UserActivity = () =>{
             if(activityPeriod === "day") payload = await getActivityForDay(params.id)
             if(activityPeriod === "month") payload = await getActivityForMonth(params.id)
             if(activityPeriod === "year") payload = await getActivityForYear(params.id)
-            let flatened = {} as {[name: string]: number}
+            const flatened = {} as {[name: string]: number}
             payload.forEach((entry: activityPayload)=>{
                 const index = entry.action.commandname + " From " + entry.Bot.servername
                 flatened[index] = (flatened[index] ?? 0) + 1
             })
-            let _data = {
+            const _data = {
                 labels: [] as string[],
                 datasets: [{
                     label: "Activity For Today",
@@ -98,7 +98,7 @@ const UserActivity = () =>{
                         options={{
                             maintainAspectRatio: false,
                             plugins: {
-                                //@ts-ignore
+                                //@ts-expect-error Library not expecting addons in plugins prop
                                 autocolors: {
                                     mode: 'data'
                                 },

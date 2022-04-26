@@ -1,14 +1,14 @@
 import {useTheme} from "@mui/material"
 import {useEffect, useState} from "react"
 import Sidebar from "./Sidebar"
-import ConfigContext, {bot} from "./ConfigContext"
+import ConfigContext from "./ConfigContext"
 import EditConfig from "./EditConfig"
 import SubmitPane from "./SubmitPane"
 
 const Config = () => {
     const theme = useTheme();
-    const [bot, _setBot] = useState<bot | undefined>(undefined)
-    const setBot = (bot: bot) => {
+    const [bot, _setBot] = useState<Bot | undefined>(undefined)
+    const setBot = (bot: Bot) => {
         bot.config.permissions.sort((a:permission, b:permission)=>{
             if(a.command < b.command) return -1
             if(a.command > b.command) return 1
