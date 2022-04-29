@@ -51,7 +51,7 @@ const AllowedForm = (props: {
                 labelId="allowed-input"
                 multiple
                 // Looks like value isnt properly typed for multiple
-                // @ts-ignore
+                //@ts-expect-error Select should be accepting this, looks to be MUI error
                 value={props.allowedOn}
                 onChange={props.handleAllowedOnChange}
                 label="AllowedOn"
@@ -97,7 +97,7 @@ const AllowedForm = (props: {
                 labelId="allowed-input"
                 multiple
                 // Looks like value isnt properly typed for multiple
-                // @ts-ignore
+                //@ts-expect-error Select should be accepting this, looks to be MUI error
                 value={props.allowedOn}
                 onChange={props.handleAllowedOnChange}
                 label="AllowedOn"

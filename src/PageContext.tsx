@@ -8,10 +8,10 @@ type user = {
 
 const PageContext = React.createContext({
     colorMode: {
-        toggleColorMode: () => {}
+        toggleColorMode: () => {return}
     },
-    setTokenInfo: (token: string, expiration: number) => {},
-    setUser: (user: user) => {},
+    setTokenInfo: (token: string, expiration: number) => {return},
+    setUser: (user: user) => {return},
     user: {
         name: '',
         id: '',
@@ -19,7 +19,7 @@ const PageContext = React.createContext({
     },
     accessToken: '',
     expiration: 0,
-    setCookie: (name: ("mode" | "user" | "token"), value: any, options?: any) => {}
+    setCookie: (name: ("mode" | "user" | "token"), value: any, options?: any) => {return}
 })
 
 export default PageContext
