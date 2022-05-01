@@ -2,7 +2,7 @@ import ENV_URL from "./env"
 
 export async function getTotalUserCount(){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/homepage/getTotalUserCount`, {
+        const res = await fetch(`${ENV_URL}/homepage/getTotalUserCount`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ export async function getTotalUserCount(){
 
 export async function getTotalServerCount(){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/homepage/getTotalServerCount`, {
+        const res = await fetch(`${ENV_URL}/homepage/getTotalServerCount`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export async function getTotalServerCount(){
 
 export async function search(searchString: string){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/homepage/search`, {
+        const res = await fetch(`${ENV_URL}/homepage/search`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export async function search(searchString: string){
 
 export async function getHourTransactions(){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/homepage/getHourTransactions`, {
+        const res = await fetch(`${ENV_URL}/homepage/getHourTransactions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

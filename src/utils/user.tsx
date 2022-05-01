@@ -2,7 +2,7 @@ import ENV_URL from "./env"
 
 export async function getUser(userid :string){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/user/getUser`, {
+        const res = await fetch(`${ENV_URL}/user/getUser`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export async function getUser(userid :string){
 
 export async function getReps(userid :string){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/user/getReps`, {
+        const res = await fetch(`${ENV_URL}/user/getReps`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export async function getReps(userid :string){
 
 export async function getRecentTransactions(userid :string, num: number){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/user/getRecentTransactions`, {
+        const res = await fetch(`${ENV_URL}/user/getRecentTransactions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export async function getRecentTransactions(userid :string, num: number){
 
 export async function getActivityForDay(userid :string){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/user/getActivityForDay`, {
+        const res = await fetch(`${ENV_URL}/user/getActivityForDay`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ export async function getActivityForDay(userid :string){
 
 export async function getActivityForMonth(userid :string){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/user/getActivityForMonth`, {
+        const res = await fetch(`${ENV_URL}/user/getActivityForMonth`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ export async function getActivityForMonth(userid :string){
 
 export async function getActivityForYear(userid :string){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/user/getActivityForYear`, {
+        const res = await fetch(`${ENV_URL}/user/getActivityForYear`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
