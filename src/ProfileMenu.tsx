@@ -46,7 +46,7 @@ function ProfileMenu(props: {user?: {id: string, avatar: string, name: string}})
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 >
-                <MenuItem onClick={() => {window.location.href="https://discord.com/api/oauth2/authorize?client_id=852589582733541416&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth&response_type=token&scope=identify"}}>
+                <MenuItem onClick={() => {window.location.href=`https://discord.com/api/oauth2/authorize?client_id=852589582733541416&redirect_uri=${encodeURIComponent(window.location.origin + "/")}auth&response_type=token&scope=identify`}}>
                     Login
                 </MenuItem>
                     <MenuItem>
