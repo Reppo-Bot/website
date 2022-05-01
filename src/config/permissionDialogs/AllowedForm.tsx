@@ -17,6 +17,9 @@ const AllowedForm = (props: {
         handleAllowedOnChange: (event: SelectChangeEvent<string>)=>void,
         setAllowed: (s:string)=>void}) => {
     const botContext = useContext(ConfigContext)
+    if(botContext.bot === undefined){
+        return null
+    }
     return(
     <>
     {props.permType === 'all' ? (null) : (props.permType === 'rank' ? (
@@ -36,7 +39,7 @@ const AllowedForm = (props: {
                 onChange={(e) => props.setAllowed(e.target.value)}
                 label="Allowed"
                 >
-                {botContext.bot!.config.ranks.map((rank: rank)=>
+                {botContext.bot.config.ranks.map((rank: rank)=>
                     <MenuItem key={rank.name} value={rank.name}>
                         {rank.name}
                     </MenuItem>
@@ -56,7 +59,7 @@ const AllowedForm = (props: {
                 onChange={props.handleAllowedOnChange}
                 label="AllowedOn"
                 >
-                {botContext.bot!.config.ranks.map((rank: rank)=>
+                {botContext.bot.config.ranks.map((rank: rank)=>
                     <MenuItem key={rank.name} value={rank.name}>
                         {rank.name}
                     </MenuItem>
@@ -82,7 +85,7 @@ const AllowedForm = (props: {
                 onChange={(e) => props.setAllowed(e.target.value)}
                 label="Allowed"
                 >
-                {botContext.bot!.config.roles.map((rank: rank)=>
+                {botContext.bot.config.roles.map((rank: rank)=>
                     <MenuItem key={rank.name} value={rank.name}>
                         {rank.name}
                     </MenuItem>
@@ -102,7 +105,7 @@ const AllowedForm = (props: {
                 onChange={props.handleAllowedOnChange}
                 label="AllowedOn"
                 >
-                {botContext.bot!.config.roles.map((rank: rank)=>
+                {botContext.bot.config.roles.map((rank: rank)=>
                     <MenuItem key={rank.name} value={rank.name}>
                         {rank.name}
                     </MenuItem>

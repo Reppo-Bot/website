@@ -82,7 +82,7 @@ export const getDesignTokens = (mode: PaletteMode)=> ({
 
 export async function login(accessToken: string, expiration: string){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/global/login`, {
+        const res = await fetch(`${ENV_URL}/global/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -105,7 +105,7 @@ export async function login(accessToken: string, expiration: string){
 
 export async function logout(accessToken: string){
     try{
-        const res = await fetch(`http://web.${ENV_URL}/global/logout`, {
+        const res = await fetch(`${ENV_URL}/global/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
